@@ -1,0 +1,45 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"></head>
+<body>
+<script>
+            function getParameterByName(name) {
+                var url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            function getCookieSyncParameter(gdprApplies, consentString, consentString_V2, uspConsent) {
+                let param = '?';
+                if (gdprApplies == '1') {
+                    param = param + 'gdpr=1&';
+                }
+                if (consentString) {
+                    param = param + 'euconsent=' + consentString + '&';
+                } 
+                if (consentString_V2) {
+                    param = param + 'euconsent-v2=' + consentString_V2 + '&';
+                }
+                if (uspConsent) {
+                    param = param + 'usprivacy=' + uspConsent;
+                }
+                return param;
+            }
+            let gdpr = getParameterByName('gdpr');
+            let consentString = getParameterByName('euconsent');
+            let consentString_V2 = getParameterByName('euconsent-v2');
+            let usprivacy = getParameterByName('usprivacy');
+            var img = document.createElement("img");
+            img.setAttribute('src', 'https://sync.aralego.com/idsync' + getCookieSyncParameter(gdpr, consentString, consentString_V2, usprivacy));
+            img.setAttribute('height', '1px');
+            img.setAttribute('width', '1px');
+            img.setAttribute('style', 'display:none');
+            document.body.appendChild(img);
+
+        </script><img src="1x1.png" height="1px" width="1px" style="display:none">
+
+
+</body></html>

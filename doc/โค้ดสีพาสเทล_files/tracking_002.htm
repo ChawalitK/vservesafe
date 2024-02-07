@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimize Tracking</title>
+</head>
+
+<body>
+    <script>
+        class Optimize {
+            constructor({_window, _document}) {
+                this.code_segment = "2825850";
+                this.code_type = "bd";
+                this.href = "https://www.thairath.co.th/lifestyle/life/2691281";
+                this.referrer = "https://www.google.com/";
+                this.action = "false";
+                this._window = _window;
+                this._document = _document;
+            }
+
+            init(){
+                this.getfingerID();
+                
+            }
+
+            getfingerID(){
+                try {
+                    // Initialize the agent at application startup.
+                    const _this = this;
+                    const FIDPromise = import('https://openfpcdn.io/fingerprintjs/v3').then(FingerprintJS => FingerprintJS.load());
+                    FIDPromise.then(fp => fp.get()).then(result => {
+                        // This is the visitor identifier:
+                        let fingerID = result.visitorId || "";
+                        _this.logData(fingerID);
+                    })
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+            logData(fingerID){
+                try {
+                    let OPTUID = this.getOPTUID();
+                    if(OPTUID){
+                        let { browser_lang, site_lang } = this.getLanguage();
+                        let action = false;
+                        let url = "https://optimize.urekamedia.com/log/data";
+                        let params = {
+                            name: OPTUID,
+                            action: action,
+                            code_segment: this.code_segment,
+                            code_type: this.code_type,
+                            url: this.href,
+                            referrer: this.referrer,
+                            finger_id: fingerID,
+                            browser_lang: browser_lang,
+                            site_lang: site_lang,
+                            device_pixel_ratio: window.devicePixelRatio,
+                            width: window.screen.availWidth,
+                            height: window.screen.availHeight
+                        }
+                        this.xhttp(url, params);
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            mapAdnxs(){
+                try {
+                    let OPTUID = this.getOPTUID();
+                    if(OPTUID){
+                        let getuid = "https://ib.adnxs.com/getuid?https://optimize.urekamedia.com/log/adnxs?adnxs_uid=$UID&uid="+OPTUID+"&segment="+this.code_segment;
+                        var adnxsIMG = document.createElement("img");
+                        adnxsIMG.setAttribute("id", 'adnxs-'+this.code_segment);
+                        adnxsIMG.style.display = 'none';
+                        adnxsIMG.width = 1;
+                        adnxsIMG.height = 1;
+                        adnxsIMG.src = getuid;
+                        window.document.body.appendChild(adnxsIMG);
+                    }
+                } catch (error) {
+                    console.log(uuid, error);
+                }
+            }
+
+            getOPTUID(){
+                let UUID = "82169863016674";
+                return UUID;
+            }
+
+            getLanguage(){
+                try {
+                    let browser_lang = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage;
+                    let site_lang = "";
+                    let list_lang = this._document.querySelectorAll("[lang]");
+                    if (list_lang.length > 0) {
+                        list_lang.forEach(function (elem, key) {
+                            if (elem.getAttribute("lang") != "" && site_lang == "") {
+                                site_lang = elem.getAttribute("lang");
+                            }
+                        });
+                    }
+                    return { browser_lang, site_lang }
+                } catch (error) {
+                    console.log(error);
+                    return { browser_lang: "", site_lang: "" }
+                }
+            }
+
+            xhttp(url, params, method = "GET"){
+                try {
+                    let TIMESTAMP = new Date().getTime();
+                    let data = encodeURI(window.btoa(JSON.stringify(params)));
+                    url.includes('?') ? url : url += '?'
+                    let src = url + "&q=" + data + "&v=" + TIMESTAMP;
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.open(method, src, true);
+                    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                    xhttp.send();
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }
+
+        (function() {
+                try {
+                    var _window = window.top;
+                    var _document = window.top.document;
+                } catch (er) {
+                    try {
+                        _window = window.parent;
+                        _document = window.parent.document;
+                    } catch (err) {
+                        _window = window;
+                        _document = window.document;
+                    }
+                }
+
+            var opt = new Optimize({
+                _window: _window,
+                _document: _document
+            });
+            opt.init();
+        })();
+    </script>
+
+
+</body></html>

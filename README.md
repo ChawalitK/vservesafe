@@ -1,2 +1,2 @@
-# vservesafe
-vservesafe - food management system
+# vservsafe
+vservsafe 
