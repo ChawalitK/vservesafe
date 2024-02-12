@@ -3,7 +3,7 @@
 include_once("db.class.php");
 session_start();
 $dbhost = 'localhost';
-$dbuser = 'root';
+$dbuser = 'webusers';
 $dbpass = '!QAZxsw2#';
 $dbname = 'vservesafe';
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
@@ -13,7 +13,6 @@ function getProfile($user_id) {
   $profile = $db->query('SELECT * FROM profiles WHERE user_id = ? limit 1', $user_id)->fetchArray();
   return $profile;
 }
-
 
 
 if((isset($_POST['username']) && strlen($_POST['username']) > 0) && 

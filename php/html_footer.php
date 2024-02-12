@@ -46,10 +46,59 @@
   }
 
   
-    </style>:
+    </style>
 
-    <footer class="footer fixed-bottom  bg-footer" style="padding: 0px;border-top:none;">
-      <div class="container-fluid d-md-none d-sm-block" style="padding: 0px;">
+    <footer class="footer bg-footer d-none d-md-block d-lg-block" style="padding: 0px;border-top:none;">
+
+      <div class="container-xl text-white" style="padding: 20px;">
+      <div class="row text-center align-items-center flex-row-reverse text-white" >
+          <div class="col-lg-auto ms-lg-auto">
+            <ul class="list-inline list-inline-dots mb-0 text-white">
+              <li class="list-inline-item text-white"><a href="https://tabler.io/docs" target="_blank" class="link-secondary" rel="noopener">Documentation</a></li>
+              <li class="list-inline-item text-white"><a href="license.html" class="link-secondary">License</a></li>
+              <li class="list-inline-item text-white"><a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a></li>
+              <li class="list-inline-item text-white">
+                <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary text-white" rel="noopener">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon text-pink icon-filled icon-inline"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                  </svg>
+                  Sponsor
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+            <ul class="list-inline list-inline-dots mb-0">
+              <li class="list-inline-item text-white">
+                Copyright &copy; 2023
+                <a href="index.html" class="link-secondary text-white">Vservsafe</a>. All rights reserved.
+              </li>
+              <li class="list-inline-item">
+                <a href="changelog.html" class="link-secondary text-white" rel="noopener">
+                  v1.0.0-beta20
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+    </footer>
+
+
+    <footer class="footer fixed-bottom  bg-footer d-md-none d-sm-block" style="padding: 0px;border-top:none;">
+      <div class="container-fluid " style="padding: 0px;">
         <div class="row" style="padding: 0px; margin-right: 0px; margin-left: 0px;">
          
           <div class="col p-2 text-white text-center mobile-menu-sm-xs">
@@ -132,63 +181,19 @@
 
             <svg xmlns="http://www.w3.org/2000/svg"  width="32" height="32" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"></path><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path></svg>
 
-            
-
-            
             <label>Setting</label>
           </div>
           </a>
           <!-- <div class="col p-2 bg-success text-white">Column 4</div> -->
         </div>
       </div>
-      <div class="container-xl d-none d-md-block d-lg-block text-white" style="padding: 20px;">
-      <div class="row text-center align-items-center flex-row-reverse text-white" >
-          <div class="col-lg-auto ms-lg-auto">
-            <ul class="list-inline list-inline-dots mb-0 text-white">
-              <li class="list-inline-item text-white"><a href="https://tabler.io/docs" target="_blank" class="link-secondary" rel="noopener">Documentation</a></li>
-              <li class="list-inline-item text-white"><a href="license.html" class="link-secondary">License</a></li>
-              <li class="list-inline-item text-white"><a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a></li>
-              <li class="list-inline-item text-white">
-                <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary text-white" rel="noopener">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="icon text-pink icon-filled icon-inline"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                  </svg>
-                  Sponsor
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-12 col-lg-auto mt-3 mt-lg-0">
-            <ul class="list-inline list-inline-dots mb-0">
-              <li class="list-inline-item text-white">
-                Copyright &copy; 2023
-                <a href="index.html" class="link-secondary text-white">Vservsafe</a>. All rights reserved.
-              </li>
-              <li class="list-inline-item">
-                <a href="changelog.html" class="link-secondary text-white" rel="noopener">
-                  v1.0.0-beta20
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
 
 
-
-      </div>
       <!-- </div> -->
     </footer>
+
+
+
 
     <!-- <div style="text-align:left; font-size: 16px; text-align:center; color:black;">
       <span class="d-block d-sm-none">SIZE XS</span>
