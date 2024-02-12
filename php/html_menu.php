@@ -280,7 +280,7 @@
                     </span>
                   </a>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="https://tabler.io/docs" target="_blank" rel="noopener">
+                    <a class="dropdown-item" href="shecup_fsms_audit.php" rel="noopener">
                       FSMS Audit Verification 
                     </a>
                   </div>
