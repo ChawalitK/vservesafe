@@ -29,6 +29,14 @@ for($i=0;$i<count($res);$i++){
   $list_step .= '<li class="step-item" style="word-wrap: normal;"><a href="'.$_SERVER["PHP_SELF"].'?id='.$res[$i]['id'].'">'.$res[$i]['question'].'</a></li>';
 }
 
+if(!isset($_GET['id']) && $_SESSION['lang'] == 'en'){
+  $_GET['id'] = 1;
+}else{
+  $_GET['id'] = 87;
+}
+
+
+
 if(isset($_GET['id']) && $_GET['id'] > 0){
 
   $db->select('shecup_fsms_audit','id, question_no, question',NULL,'id ='.$_GET['id'].'','id ASC'); // Table name, Column Names, JOIN, WHERE conditions, ORDER BY conditions
