@@ -29,11 +29,11 @@ for($i=0;$i<count($res);$i++){
   $list_step .= '<li class="step-item" style="word-wrap: normal;"><a href="'.$_SERVER["PHP_SELF"].'?id='.$res[$i]['id'].'">'.$res[$i]['question'].'</a></li>';
 }
 
-if(!isset($_GET['id']) && $_SESSION['lang'] == 'en'){
-  $_GET['id'] = 1;
-}else{
-  $_GET['id'] = 87;
-}
+// if(!isset($_GET['id']) && $_SESSION['lang'] == 'en' && !isset($_POST['lang'])){
+//   $_GET['id'] = 1;
+// }else{
+//   $_GET['id'] = 87;
+// }
 
 
 

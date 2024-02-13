@@ -2,13 +2,7 @@
   
 
   // if()
-  if(!isset($_SESSION['lang'])){
-    $_SESSION['lang'] = 'th';
-  }
 
-  if(isset($_POST['lang']) && strlen($_POST['lang'])>0){
-    $_SESSION['lang'] = $_POST['lang'];
-  }
 
   // print_r($_POST);
   // print_r($_SESSION);
@@ -325,9 +319,28 @@
                     </span>
                   </a>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="shecup_fsms_audit.php" rel="noopener">
-                      FSMS Audit Verification 
-                    </a>
+
+                    <?php
+                    if($_SESSION['lang'] == 'en'){
+
+                      echo '
+                      <a class="dropdown-item" href="shecup_fsms_audit.php?id=1" rel="noopener">
+                        FSMS Audit Verification 
+                      </a>';
+
+                    }else{
+
+                      echo '
+                      <a class="dropdown-item" href="shecup_fsms_audit.php?id=87" rel="noopener">
+                        FSMS Audit Verification 
+                      </a>';
+
+                    }
+                    
+                    
+                    ?>
+
+
                   </div>
                   
                 </li>
