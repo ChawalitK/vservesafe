@@ -4,7 +4,7 @@ include_once("php/database.class.php");
 
 $db = new Database();
 $db->connect();
-$db->select('shecup_fsms_audit','id, question_no, question',NULL,'parent_id = 0 and question_lang="en"','id ASC'); // Table name, Column Names, JOIN, WHERE conditions, ORDER BY conditions
+$db->select('shecup_fsms_audit','id, question_no, question',NULL,'parent_id = 0 and question_lang="th"','id ASC'); // Table name, Column Names, JOIN, WHERE conditions, ORDER BY conditions
 $res = $db->getResult();
 // echo "<pre>";
 // print_r($res);
@@ -28,8 +28,6 @@ for($i=0;$i<count($res);$i++){
   body{
     font-family: 'Sarabun', sans-serif;
   }
-
-  
 </style>
 </head>
 <body>
@@ -90,56 +88,139 @@ for($i=0;$i<count($res);$i++){
 
 
               <div class="col-lg-8">
+
+
                 <div class="card">
-                  <div class="card-body">
-                    <h3 class="card-title">Steps horizontal</h3>
-                    <ul class="steps steps-green my-4">
-                      <li class="step-item">1</li>
-                      <li class="step-item active">2</li>
-                      <li class="step-item">3</li>
-                    </ul>
+                  <div class="card-header bg-purple text-purple-fg">
+                    <h3 class="card-title ">1. Supplier Approval</h3>
                   </div>
                   <div class="card-body">
-                    <ul class="steps steps-green steps-counter my-4">
-                      <li class="step-item"></li>
-                      <li class="step-item active"></li>
-                      <li class="step-item"></li>
-                    </ul>
-                  </div>
+
+                  <form action="https://httpbin.org/post" method="post" class="card">
+
                   <div class="card-body">
-                    <ul class="steps steps-green steps-counter my-4">
-                      <li class="step-item">Cart</li>
-                      <li class="step-item active">Billing Information</li>
-                      <li class="step-item">Confirmation</li>
-                    </ul>
+                    <div class="divide-y">
+                      <div>
+                        <div class="row">
+                          <div class="col-auto">
+                            <span class="avatar">1.1</span>
+                          </div>
+                          <div class="col">
+                            <div class="text-truncate" style="white-space: normal;">
+                              <strong>Delivery temperatures and corrective actions are documented/maintained at the facility</strong>
+                            </div>
+                          </div>
+                          <div class="col-auto align-self-center">
+                            <span class="avatar bg-red text-primary-fg">C</span>
+                            <span class="avatar bg-green text-primary-fg">5</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div class="row">
+                          <div class="mb-3">
+
+                            <label class="form-label"><strong>Compliance Status</strong></label>
+
+                            <label class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="radios-inline" checked="">
+                              <span class="form-check-label">Option 1</span>
+                            </label>
+                            <label class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="radios-inline">
+                              <span class="form-check-label">Option 2</span>
+                            </label>
+                            <label class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="radios-inline">
+                              <span class="form-check-label">Option 3</span>
+                            </label>
+
+                            <label class="form-label"><strong>Findings</strong></label>
+                            <textarea class="form-control" rows="3"></textarea>
+
+                          </div>
+
+
+
+
+
+                        </div>
+                      </div>
+
+
+
+
+
+                    </div>
                   </div>
+
+
                   <div class="card-body">
-                    <ol class="breadcrumb breadcrumb-arrows">
-                      <li class="breadcrumb-item"><a href="#">Step one</a></li>
-                      <li class="breadcrumb-item active"><a href="#">Step two</a></li>
-                      <li class="breadcrumb-item disabled"><a href="#">Step three</a></li>
-                      <li class="breadcrumb-item disabled"><a href="#">Step four</a></li>
-                    </ol>
+                    <div class="divide-y">
+                      <div>
+                        <div class="row">
+                          <div class="col-auto">
+                            <span class="avatar">1.2</span>
+                          </div>
+                          <div class="col">
+                            <div class="text-truncate" style="white-space: normal;">
+                              <strong>Supplier Audit / Evaluation process are established</strong>
+                            </div>
+                          </div>
+                          <div class="col-auto align-self-center">
+                            <span class="avatar bg-yellow text-yellow-fg">M</span>
+                            <span class="avatar bg-green text-primary-fg">3</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div class="row">
+                          <div class="mb-3">
+
+                            <label class="form-label"><strong>Compliance Status</strong></label>
+
+                            <label class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="radios-inline" checked="">
+                              <span class="form-check-label">Option 1</span>
+                            </label>
+                            <label class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="radios-inline">
+                              <span class="form-check-label">Option 2</span>
+                            </label>
+                            <label class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="radios-inline">
+                              <span class="form-check-label">Option 3</span>
+                            </label>
+
+                            <label class="form-label"><strong>Findings</strong></label>
+                            <textarea class="form-control" rows="3"></textarea>
+
+                          </div>
+
+
+
+
+
+                        </div>
+                      </div>
+
+
+
+
+
+                    </div>
                   </div>
-                  <div class="card-body">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">1. Step one</a></li>
-                      <li class="breadcrumb-item"><a href="#">2. Step two</a></li>
-                      <li class="breadcrumb-item active"><a href="#">3. Step three</a></li>
-                      <li class="breadcrumb-item disabled"><a href="#">4. Step four</a></li>
-                      <li class="breadcrumb-item disabled"><a href="#">5. Step five</a></li>
-                    </ol>
-                  </div>
-                  <div class="card-body">
-                    <ol class="breadcrumb breadcrumb-muted">
-                      <li class="breadcrumb-item"><a href="#">1. Step one</a></li>
-                      <li class="breadcrumb-item"><a href="#">2. Step two</a></li>
-                      <li class="breadcrumb-item active"><a href="#">3. Step three</a></li>
-                      <li class="breadcrumb-item disabled"><a href="#">4. Step four</a></li>
-                      <li class="breadcrumb-item disabled"><a href="#">5. Step five</a></li>
-                    </ol>
+
+
+                    </form> 
+
+
                   </div>
                 </div>
+
+
               </div>
 
             </div>
