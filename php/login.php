@@ -26,6 +26,7 @@ if((isset($_POST['username']) && strlen($_POST['username']) > 0) &&
         // echo "login";
         $profile = getProfile($user['id']);
         $_SESSION = array_merge($user, $profile);
+        $_SESSION['lang'] = 'en';
         header("location:shedein_food_safety_management.php");
         // print_r($_SESSION);
       }else{
