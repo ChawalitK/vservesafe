@@ -16,7 +16,6 @@ if(isset($_POST['lang']) && strlen($_POST['lang'])>0){
   }
 }
 
-
 $db = new Database();
 $db->connect();
 $db->select('shecup_fsms_audit','id, question_no, question',NULL,'parent_id = 0 and question_lang="'.$_SESSION['lang'].'"','id ASC'); // Table name, Column Names, JOIN, WHERE conditions, ORDER BY conditions
@@ -164,10 +163,13 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
             <div class="row row-cards">
 
 
-            <div class="col-lg-4">
+            <div class="col-lg-4 d-none d-md-block d-lg-block">
                 <div class="card">
+                  <div class="card-header bg-primary text-purple-fg">
+                    <h3 class="card-title ">Verification Section</h3>
+                  </div>
                   <div class="card-body">
-                    <h3 class="card-title">Section</h3>
+                    <!-- <h3 class="card-title">Section</h3> -->
                     <ul class="steps steps-counter steps-vertical">
 
                       <?php echo $list_step;?>
@@ -227,7 +229,80 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
               </div>
 
             </div>
+
+
+
+
+
+            
           </div>
+
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasStart" aria-labelledby="offcanvasStartLabel">
+          <div class="offcanvas-header">
+            <h2 class="offcanvas-title" id="offcanvasStartLabel">Start offcanvas</h2>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab assumenda ea est, eum exercitationem fugiat illum itaque laboriosam magni necessitatibus, nemo nisi numquam quae reiciendis repellat sit soluta unde. Aut!
+            </div>
+            <div class="mt-3">
+              <button class="btn btn-primary" type="button" data-bs-dismiss="offcanvas">
+                Close offcanvas
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel">
+          <div class="offcanvas-header">
+            <h2 class="offcanvas-title" id="offcanvasEndLabel">End offcanvas</h2>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab assumenda ea est, eum exercitationem fugiat illum itaque laboriosam magni necessitatibus, nemo nisi numquam quae reiciendis repellat sit soluta unde. Aut!
+            </div>
+            <div class="mt-3">
+              <button class="btn btn-primary" type="button" data-bs-dismiss="offcanvas">
+                Close offcanvas
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+          <div class="offcanvas-header">
+            <h2 class="offcanvas-title" id="offcanvasTopLabel">Top offcanvas</h2>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab assumenda ea est, eum exercitationem fugiat illum itaque laboriosam magni necessitatibus, nemo nisi numquam quae reiciendis repellat sit soluta unde. Aut!
+            </div>
+            <div class="mt-3">
+              <button class="btn btn-primary" type="button" data-bs-dismiss="offcanvas">
+                Close offcanvas
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+          <div class="offcanvas-header">
+            <h2 class="offcanvas-title" id="offcanvasBottomLabel">Bottom offcanvas</h2>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab assumenda ea est, eum exercitationem fugiat illum itaque laboriosam magni necessitatibus, nemo nisi numquam quae reiciendis repellat sit soluta unde. Aut!
+            </div>
+            <div class="mt-3">
+              <button class="btn btn-primary" type="button" data-bs-dismiss="offcanvas">
+                Close offcanvas
+              </button>
+            </div>
+          </div>
+        </div>
+
+
         </div>
 
     <?php include_once("php/html_footer.php");?>
