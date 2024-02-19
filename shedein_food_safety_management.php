@@ -21,6 +21,80 @@ if(!isset($_SESSION['firstname'])){
     font-family: 'Sarabun', sans-serif;
   }
 
+  .breadcrumb.wizard {
+    padding: 0px;
+	background: #D4D4D4;
+	list-style: none;
+	overflow: hidden;
+    margin-top: 20px;
+  font-size: 10px;
+}
+.breadcrumb.wizard>li+li:before {
+	padding: 0;
+}
+.breadcrumb.wizard li {
+	float: left;
+}
+.breadcrumb.wizard li.active a {
+	background: brown;                   /* fallback color */
+	background: #ffc107 ;
+}
+.breadcrumb.wizard li.completed a {
+	background: brown;                   /* fallback color */
+	background: hsla(153, 57%, 51%, 1);
+}
+.breadcrumb.wizard li.active a:after {
+	border-left: 30px solid #ffc107 ;
+}
+.breadcrumb.wizard li.completed a:after {
+	border-left: 30px solid hsla(153, 57%, 51%, 1);
+}
+
+.breadcrumb.wizard li a {
+	color: white;
+	text-decoration: none;
+	padding: 10px 0 10px 45px;
+	position: relative;
+	display: block;
+	float: left;
+}
+.breadcrumb.wizard li a:after {
+	content: " ";
+	display: block;
+	width: 0;
+	height: 0;
+	border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
+	border-bottom: 50px solid transparent;
+	border-left: 30px solid hsla(0, 0%, 83%, 1);
+	position: absolute;
+	top: 50%;
+	margin-top: -50px;
+	left: 100%;
+	z-index: 2;
+}
+.breadcrumb.wizard li a:before {
+	content: " ";
+	display: block;
+	width: 0;
+	height: 0;
+	border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
+	border-bottom: 50px solid transparent;
+	border-left: 30px solid white;
+	position: absolute;
+	top: 50%;
+	margin-top: -50px;
+	margin-left: 1px;
+	left: 100%;
+	z-index: 1;
+}
+.breadcrumb.wizard li:first-child a {
+	padding-left: 15px;
+}
+.breadcrumb.wizard li a:hover { background: #ffc107  ; }
+.breadcrumb.wizard li a:hover:after { border-left-color: #ffc107   !important; }
+
+
+
   
 </style>
 </head>
@@ -33,6 +107,24 @@ if(!isset($_SESSION['firstname'])){
     <!-- Page header -->
     <div class="page-header d-print-none">
       <div class="container-xl">
+
+      <!-- <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Library</li>
+  </ol>
+</nav> -->
+
+<div class="row">
+		<ul class="breadcrumb wizard">
+			<li class="completed"><a href="javascript:void(0);">Personal Contact</a></li>
+			<li class="completed"><a href="javascript:void(0);">Educational/Experience</a></li>
+			<li><a href="javascript:void(0);">Photo Upload</a></li>
+			<li class=""><a href="javascript:void(0);">Payment</a></li>
+		</ul>
+	</div>
+
+
         <div class="row g-2 align-items-center">
           <div class="col">
             <h3 class="page-title" style="font-size:15px;color:#333333;">
