@@ -251,12 +251,12 @@ FROZEN FOOD-->
 
 
 
-  <div class="col-md-12 bg-indigo text-indigo-fg p-2 text-center">
+  <!-- <div class="col-md-12 bg-indigo text-indigo-fg p-2 text-center">
+    bg-blue text-blue-fg -->
+
+  <div class="col-md-12 bg-indigo text-indigo-fg p-2 text-center">    
     <span style="font-size:19px;">Vechicle Inspection</span>
   </div>
-
-
-
 
   <div class="col-md-6">
     <label for="inputPassword4" class="form-label">VEHICLE TEMP. C (2) *</label>
@@ -272,11 +272,11 @@ FROZEN FOOD-->
     <div class="form-label">VISUAL CONDITION (3) *</div>
     <div style='padding-top:10px;'>
       <label class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="radios-inline" checked="">
+        <input class="form-check-input" type="radio" name="radios-inline3" checked="">
         <span class="form-check-label">ACCEPT</span>
       </label>
       <label class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="radios-inline">
+        <input class="form-check-input" type="radio" name="radios-inline3">
         <span class="form-check-label">UNACCEPTABLE</span>
       </label>
     </div>
