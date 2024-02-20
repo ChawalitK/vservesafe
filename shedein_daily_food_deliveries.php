@@ -36,7 +36,7 @@ if(!isset($_SESSION['firstname'])){
           <div class="col">
             <!-- <h2 class="page-title"> -->
             <h3 class="page-title" style="font-size:16px;color:#333333;">
-              Home / SHEDEIN / Food Safety Management / Chilled/Frozen Storage Form
+              Home / SHEDEIN / Food Safety Management / Daily Food Deliveries Form
             <!-- </h3> -->
             </h2>
           </div>
@@ -65,7 +65,7 @@ if(!isset($_SESSION['firstname'])){
                   <div class="card-body">
                     <div class="tab-content">
                       <div class="tab-pane fade active show" id="tabs-home-8" role="tabpanel">
-                        <h1 class="">Chilled/Frozen Storage Form</h1>
+                        <h1 class="">Daily Food Deliveries Form</h1>
                         <div>
 
                         <form class="row g-3">
@@ -163,21 +163,24 @@ if(!isset($_SESSION['firstname'])){
 
 
     <div class="col-md-6 offset-md-1">
-    <label for="inputCity" class="form-label">No. Freezer / Refrigerator *</label>
+    <label for="inputCity" class="form-label">Supplier *</label>
 
     <select id="inputState" class="form-select">
-      <option selected>Select freezer/refrigerator</option>
-      <option>AOP-KITC-067</option>
-      <option>AOP-KITC-068</option>
-      <option>AOP-KITC-069</option>
-      <option>AOP-KITC-070</option>
+      <option selected>Select Supplier</option>
+      <option>3CFARM CO.,LTD</option>
+      <option>A-ONE FOOD PRODUCT CO.,LTD.</option>
+      <option>AMERICAN-EUROPEAN PRODUCTS CO.,LTD.</option>
+      <option>BEERTINI CO.,LTD.</option>
+      <option>BETAGRO AGRO INDUSTRY CO.,LTD</option>
+      <option>BIG C SUPERCENTER PUBLIC CO.,LTD.</option>
+      <option>BLUE OCEAN INTER GROUP CO.,LTD</option>
     </select>
 
 
   </div>
 
 
-  <div class="col-md-3">
+  <div class="col-md-6">
     <!-- <label for="inputEmail4" class="form-label">Type of food *</label>
     <input type="email" class="form-control" id="inputEmail4"> -->
 
@@ -186,32 +189,115 @@ if(!isset($_SESSION['firstname'])){
     <div style='padding-top:10px;'>
       <label class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="radios-inline" checked="">
-        <span class="form-check-label">Chilled Food</span>
+        <span class="form-check-label">GENERAL FOOD</span>
       </label>
       <label class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="radios-inline">
-        <span class="form-check-label">Frozen Food</span>
+        <span class="form-check-label">CHILLED FOOD</span>
       </label>
+      <label class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="radios-inline">
+        <span class="form-check-label">FROZEN FOOD</span>
+      </label>
+
     </div>
-                          <!-- </div> -->
+                          <!-- </div> GENERAL FOOD
+CHILLED FOOD
+FROZEN FOOD-->
 
   </div>
-  <div class="col-md-3">
-    <label for="inputPassword4" class="form-label">Display Internal *</label>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">Purchase Order Number [PO No.] *</label>
     <input type="text" class="form-control" id="inputPassword4" placeholder="Display Internal">
   </div>
-  <div class="col-md-3">
-    <label for="inputAddress" class="form-label">Display External *</label>
+  <div class="col-md-6">
+    <label for="inputAddress" class="form-label">Description of Products *</label>
     <input type="text" class="form-control" id="inputAddress" placeholder="Display External">
   </div>
- 
+
+  <div class="col-md-3">
+    <label for="inputAddress" class="form-label">Date Produced Slaughter *</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="Display External">
+  </div>
+
+  <div class="col-md-3">
+    <label for="inputAddress" class="form-label">Expire Date *</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="Display External">
+  </div>
+
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">FOOD TEMP. AT RECEIVING (1) *</label>
+    <input type="text" class="form-control" id="inputPassword4" placeholder="Display Internal">
+  </div>
+
+  <div class="col-md-6">
+  <div class="form-label">Food Quality/Safety *</div>
+    <div style='padding-top:10px;padding-bottom:5px;'>
+      <label class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="radios-inline1" checked="">
+        <span class="form-check-label">Accept</span>
+      </label>
+      <label class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="radios-inline1">
+        <span class="form-check-label">Reject</span>
+      </label>
+      <label class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="radios-inline1">
+        <span class="form-check-label">Accept With Condition</span>
+      </label>
+
+    </div>
+  </div>
+
+
+
+  <div class="col-md-12 bg-indigo text-indigo-fg p-2 text-center">
+    <span style="font-size:19px;">Vechicle Inspection</span>
+  </div>
+
+
+
+
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">VEHICLE TEMP. C (2) *</label>
+    <input type="text" class="form-control" id="inputPassword4" placeholder="Display Internal">
+  </div>
+
+
+  <div class="col-md-6">
+    <!-- <label for="inputEmail4" class="form-label">Type of food *</label>
+    <input type="email" class="form-control" id="inputEmail4"> -->
+
+    <!-- <div class="mb-3"> -->
+    <div class="form-label">VISUAL CONDITION (3) *</div>
+    <div style='padding-top:10px;'>
+      <label class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="radios-inline" checked="">
+        <span class="form-check-label">ACCEPT</span>
+      </label>
+      <label class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="radios-inline">
+        <span class="form-check-label">UNACCEPTABLE</span>
+      </label>
+    </div>
+                          <!-- </div> GENERAL FOOD
+CHILLED FOOD
+FROZEN FOOD-->
+
+  </div>
+
+
+
+
+
   <div class="col-lg-12">
-    <label class="form-label">Corrective Action <span class="form-label-description">56/100</span></label>
+
+    <label class="form-label">Corrective Action CORRECTIVE ACTIONS REQUIRED (IF NECESSARY/CONDITION)</label>
     <textarea class="form-control" name="example-textarea-input" rows="3" placeholder="Corrective Action"></textarea>
   </div>
 
   <div class="col-lg-12">
-    <label class="form-label">Remark<span class="form-label-description">56/100</span></label>
+    <label class="form-label">Remark</label>
     <textarea class="form-control" name="example-textarea-input" rows="3" placeholder="Remark"></textarea>
   </div>
  

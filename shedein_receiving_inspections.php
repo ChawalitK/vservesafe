@@ -36,7 +36,7 @@ if(!isset($_SESSION['firstname'])){
           <div class="col">
             <!-- <h2 class="page-title"> -->
             <h3 class="page-title" style="font-size:16px;color:#333333;">
-              Home / SHEDEIN / Food Safety Management / Chilled/Frozen Storage Form
+              Home / SHEDEIN / Food Safety Management / Receiving Inspection Form
             <!-- </h3> -->
             </h2>
           </div>
@@ -52,7 +52,7 @@ if(!isset($_SESSION['firstname'])){
                   <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs" role="tablist">
                       <li class="nav-item" role="presentation">
-                        <a href="#tabs-home-8" class="nav-link active" data-bs-toggle="tab" aria-selected="true" role="tab">Chilled/Frozen Storage</a>
+                        <a href="#tabs-home-8" class="nav-link active" data-bs-toggle="tab" aria-selected="true" role="tab">Receiving Inspection</a>
                       </li>
                       <li class="nav-item" role="presentation">
                         <a href="#tabs-profile-8" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">List Records</a>
@@ -65,160 +65,11 @@ if(!isset($_SESSION['firstname'])){
                   <div class="card-body">
                     <div class="tab-content">
                       <div class="tab-pane fade active show" id="tabs-home-8" role="tabpanel">
-                        <h1 class="">Chilled/Frozen Storage Form</h1>
+                        <h4>Receiving Inspection Form</h4>
                         <div>
 
                         <form class="row g-3">
-    
-                        <div class="col-md-6">
-    <label for="inputCity" class="form-label">Department</label>
-
-    <select id="inputState" class="form-select">
-      <option selected>Select Department</option>
-      <option>FB-IRD</option>
-      <option>FB-Amaya</option>
-      <option>FB-Banquet</option>
-      <option>FB-Aqua Bar</option>
-      <option>FB-Prego</option>
-    </select>
-    </div>
-    <div class="col-md-6">
-      <label for="inputState" class="form-label">Reporter</label>
-      <input type="text" class="form-control" id="inputCity" placeholder="Reporter">
-    </div>
-
-
-  <div class="col-md-3">
-    <label for="inputState" class="form-label">Date</label>
-    <input type="text" class="form-control" id="inputCity" placeholder="Date">
-  </div>
-  <div class="col-md-1">
-    <label for="inputZip" class="form-label">Hours *</label>
-    <select id="inputState" class="form-select">
-      <option selected>HH</option>
-      <option>00</option>
-      <option>01</option>
-      <option>02</option>
-      <option>03</option>
-      <option>04</option>
-      <option>05</option>
-      <option>06</option>
-      <option>07</option>
-      <option>08</option>
-      <option>09</option>
-      <option>10</option>
-      <option>11</option>
-      <option>12</option>
-      <option>13</option>
-      <option>14</option>
-      <option>15</option>
-      <option>16</option>
-      <option>17</option>
-      <option>18</option>
-      <option>19</option>
-      <option>20</option>
-      <option>21</option>
-      <option>22</option>
-      <option>23</option>
-    </select>
-  </div>
-  <div class="col-md-1">
-    <label for="inputZip" class="form-label">Minutes *</label>
-    <select id="inputState" class="form-select">
-    <option selected>MM</option>
-      <option>00</option>
-      <option>01</option>
-      <option>02</option>
-      <option>03</option>
-      <option>04</option>
-      <option>05</option>
-      <option>06</option>
-      <option>07</option>
-      <option>08</option>
-      <option>09</option>
-      <option>10</option>
-      <option>11</option>
-      <option>12</option>
-      <option>13</option>
-      <option>14</option>
-      <option>15</option>
-      <option>16</option>
-      <option>17</option>
-      <option>18</option>
-      <option>19</option>
-      <option>20</option>
-      <option>21</option>
-      <option>22</option>
-      <option>23</option>
-      <option>24</option>
-      <option>25</option>
-      <option>26</option>
-      <option>27</option>
-      <option>28</option>
-      <option>29</option>
-      <option>30</option>
-
-    </select>
-  </div>
-
-
-    <div class="col-md-6 offset-md-1">
-    <label for="inputCity" class="form-label">No. Freezer / Refrigerator *</label>
-
-    <select id="inputState" class="form-select">
-      <option selected>Select freezer/refrigerator</option>
-      <option>AOP-KITC-067</option>
-      <option>AOP-KITC-068</option>
-      <option>AOP-KITC-069</option>
-      <option>AOP-KITC-070</option>
-    </select>
-
-
-  </div>
-
-
-  <div class="col-md-3">
-    <!-- <label for="inputEmail4" class="form-label">Type of food *</label>
-    <input type="email" class="form-control" id="inputEmail4"> -->
-
-    <!-- <div class="mb-3"> -->
-    <div class="form-label">Type of food *</div>
-    <div style='padding-top:10px;'>
-      <label class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="radios-inline" checked="">
-        <span class="form-check-label">Chilled Food</span>
-      </label>
-      <label class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="radios-inline">
-        <span class="form-check-label">Frozen Food</span>
-      </label>
-    </div>
-                          <!-- </div> -->
-
-  </div>
-  <div class="col-md-3">
-    <label for="inputPassword4" class="form-label">Display Internal *</label>
-    <input type="text" class="form-control" id="inputPassword4" placeholder="Display Internal">
-  </div>
-  <div class="col-md-3">
-    <label for="inputAddress" class="form-label">Display External *</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="Display External">
-  </div>
- 
-  <div class="col-lg-12">
-    <label class="form-label">Corrective Action <span class="form-label-description">56/100</span></label>
-    <textarea class="form-control" name="example-textarea-input" rows="3" placeholder="Corrective Action"></textarea>
-  </div>
-
-  <div class="col-lg-12">
-    <label class="form-label">Remark<span class="form-label-description">56/100</span></label>
-    <textarea class="form-control" name="example-textarea-input" rows="3" placeholder="Remark"></textarea>
-  </div>
- 
-
-
-
-  <!-- <div class="col-md-6">
+  <div class="col-md-6">
     <label for="inputEmail4" class="form-label">Email</label>
     <input type="email" class="form-control" id="inputEmail4">
   </div>
@@ -256,10 +107,9 @@ if(!isset($_SESSION['firstname'])){
         Check me out
       </label>
     </div>
-  </div> -->
+  </div>
   <div class="col-12">
-    <button type="submit" class="btn btn-primary">Save</button>
-    <button type="reset" class="btn btn-danger">Reset</button>
+    <button type="submit" class="btn btn-primary">Sign in</button>
   </div>
 </form>
 

@@ -246,7 +246,7 @@ if(!isset($_SESSION['firstname'])){
     <div class="col-sm-6 col-lg-3">
       <div class="card">
         <!-- Photo -->
-        <a href="shedein_receiving_inspection.php">
+        <a href="shedein_daily_food_deliveries.php">
           <div class="img-responsive img-responsive-21x9 card-img-top" style="background-image: url(./img/DailyFoodDeliveriesForm.jpg)"></div>
         </a>
       </div>
