@@ -933,7 +933,7 @@ FROZEN FOOD-->
 <!-- Libs JS -->
 <!-- Tabler Core -->
 <script src="js/tabler.min.js" defer></script>
-<script src="js/demo.min.js" defer></script>
+<!-- <script src="js/demo.min.js" defer></script> -->
 
 <link href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css" rel="stylesheet">
 
