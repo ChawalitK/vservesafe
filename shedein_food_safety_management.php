@@ -108,6 +108,25 @@ if(!isset($_SESSION['firstname'])){
     <div class="page-header d-print-none">
       <div class="container-xl">
 
+
+
+      <div class="col-md-12 col-lg-12 p-3" style="background-image: url(./img/bg-banner.png);opacity: 0.8;">
+      <!-- <div class="col-md-12 col-lg-12"> -->
+
+        <div class="col text-center text-white">
+          <!-- Page pre-title -->
+          <h2 class="page-title" style="display:contents;">
+            Food Safety Management
+          </h2>
+          <div class="page-pretitle text-white">
+            Services Form
+          </div>
+
+        </div>
+      </div>
+
+ 
+
       <!-- <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -115,23 +134,23 @@ if(!isset($_SESSION['firstname'])){
   </ol>
 </nav> -->
 
-<div class="row">
+<!-- <div class="row">
 		<ul class="breadcrumb wizard">
 			<li class="completed"><a href="javascript:void(0);">Personal Contact</a></li>
 			<li class="completed"><a href="javascript:void(0);">Educational/Experience</a></li>
 			<li><a href="javascript:void(0);">Photo Upload</a></li>
 			<li class=""><a href="javascript:void(0);">Payment</a></li>
 		</ul>
-	</div>
+	</div> -->
 
 
-        <div class="row g-2 align-items-center">
+        <!-- <div class="row g-2 align-items-center">
           <div class="col">
             <h3 class="page-title" style="font-size:15px;color:#333333;">
               Home / SHEDEIN / Food Safety Management
             </h3>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- Page body -->
