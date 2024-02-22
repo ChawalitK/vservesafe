@@ -35,7 +35,6 @@ for($i=0;$i<count($res);$i++){
 // }
 
 
-
 if(isset($_GET['id']) && $_GET['id'] > 0){
 
   $db->select('shecup_fsms_audit','id, question_no, question',NULL,'id ='.$_GET['id'].'','id ASC'); // Table name, Column Names, JOIN, WHERE conditions, ORDER BY conditions
@@ -70,9 +69,6 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
       $bgcolor_risk_level = 'bg-muted-lt';
     }
 
-
-
-
     $list_question .= '<div class="card-body"><div class="divide-y">
     <div>
       <div class="row">
@@ -95,15 +91,15 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
         <div class="mb-3">
           <label class="form-label"><strong>Compliance Status</strong></label>
           <label class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="radios-inline" checked="" />
+            <input class="form-check-input" type="radio" name="answer['.$res[$i]['question_no'].']" checked="" />
             <span class="form-check-label">Non Applicant</span>
           </label>
           <label class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="radios-inline" />
+            <input class="form-check-input" type="radio" name="answer['.$res[$i]['question_no'].']" />
             <span class="form-check-label">Compliance</span>
           </label>
           <label class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="radios-inline" />
+            <input class="form-check-input" type="radio" name="answer['.$res[$i]['question_no'].']" />
             <span class="form-check-label">Non Compliance</span>
           </label>
           <label class="form-label"><strong>Findings</strong></label>
