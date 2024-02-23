@@ -19,9 +19,29 @@
       :root {
       	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
       }
+
       body {
-      	font-feature-settings: "cv03", "cv04", "cv11";
+        font-feature-settings: "cv03", "cv04", "cv11";
       }
+
+      .dt-search {
+        display: flex !important;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      .dt-length {
+        display: flex !important;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      #example > tbody {
+        /* display:block; */
+        height: 450px !important;
+      }
+
+
     </style>
   </head>
   <body >
@@ -31,9 +51,9 @@
       <div class="page-wrapper">
         <!-- Page body -->
         <div class="page-body">
-          <div class="container-xl d-flex flex-column justify-content-center">
+          <div class="container-xl ">
 
-            <table id="example" class="display" style="width:100%">
+            <table id="example" class="table card-table" style="width:100%">
               <thead>
                   <tr>
                       <th>First name</th>
