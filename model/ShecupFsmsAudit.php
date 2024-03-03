@@ -1,7 +1,7 @@
 <?php 
 require_once ("DBController.php");
 
-class ShecupFsmsAnswer
+class ShecupFsmsAudit
 {
     private $db_handle;
     
@@ -9,10 +9,8 @@ class ShecupFsmsAnswer
         $this->db_handle = new DBController();
     }
     
-    function addAnswer($answer) {
-        // echo "<pre>";
-        // print_r($answer);
-        // exit;
+    function addAudit() {
+
         $list_insert_id = array();
 
         for($i=0;$i<count($answer['q']);$i++){
@@ -24,7 +22,7 @@ class ShecupFsmsAnswer
             $answer['compliance_status'] = $answer['a'][$answer['q'][$i]];
             $answer['finding'] = '1234444';
 
-            $query = "INSERT INTO shecup_fsms_answers(`company_id`, `audit_id`, `section_id`, `question_no`, `point`, `compliance_status`, `finding`, `created`, `updated`) VALUES (?, ?, ?, ?, ?, ?, ?, Now(), Now())";
+            $query = "INSERT INTO shecup_fsms_answers(`company_id`, `audit_id`, `section_id`, `question_no`, `point`, `compliance_status`, `finding`, `created`, `updated`) VALUES (?, ?, ?, ?, ?, ?, Now(), Now())";
             $paramType = "iiisiss";
             $paramValue = array(
                 $answer['company_id'],
