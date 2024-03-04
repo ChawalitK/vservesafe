@@ -8,7 +8,7 @@ class ShecupFsmsAnswer
     function __construct() {
         $this->db_handle = new DBController();
     }
-    
+        
     function addAnswer($answer) {
         // echo "<pre>";
         // print_r($answer);
@@ -16,63 +16,27 @@ class ShecupFsmsAnswer
         $list_insert_id = array();
 
         for($i=0;$i<count($answer['q']);$i++){
-
             $section_id = (explode(".",$answer['q'][$i]));
 
             $answer['company_id'] = 1;
             $answer['audit_id'] = 1;            
             $answer['section_id'] = $section_id[0];
             $answer['question_no'] = $answer['q'][$i];
-            $answer['point'] = 1;
-            $answer['compliance_status'] = $answer['a'][$answer['q'][$i]];
-            $answer['finding'] = '1234444';
-
-            $query = "INSERT INTO shecup_fsms_answers(`company_id`, `audit_id`, `section_id`, `question_no`, `point`, `compliance_status`, `finding`, `created`, `updated`) VALUES (?, ?, ?, ?, ?, ?, ?, Now(), Now())";
-            $paramType = "iiisiss";
-            $paramValue = array(
-                $answer['company_id'],
-                $answer['audit_id'],
-                $answer['section_id'],
-                $answer['question_no'],
-                $answer['point'],
-                $answer['compliance_status'],
-                $answer['finding']
-            );
-            $insertId = $this->db_handle->insert($query, $paramType, $paramValue);
-            array_push($list_insert_id, $insertId);
-        }
-
-        print_r($list_insert_id);
-
-        return $list_insert_id;
-    }
-    
-    function addAnswerx($answer) {
-        // echo "<pre>";
-        // print_r($answer);
-        // exit;
-        $list_insert_id = array();
-
-        for($i=0;$i<count($answer['q']);$i++){
-            $section_id = (explode(".",$answer['q'][$i]));
-
-            $answer['company_id'] = 1;
-            $answer['audit_id'] = 1;            
-            $answer['section_id'] = $section_id[0];
-            $answer['question_no'] = $answer['q'][$i];
+            $answer['score'] = 5;
             $answer['point'] = 5;
             $answer['compliance_status'] = $answer['a'][$answer['q'][$i]];
             $answer['finding'] = '1234444';
 
-            $query = "INSERT INTO shecup_fsms_answers_x(`company_id`, `audit_id`, `section_id`, `question_no`, `point`, `compliance_status`,
-                        `finding`, `created`, `updated`) VALUES (?, ?, ?, ?, ?, ?, ?, Now(), Now())
+            $query = "INSERT INTO shecup_fsms_answers(`company_id`, `audit_id`, `section_id`, `question_no`, `score`, `point`, `compliance_status`,
+                        `finding`, `created`, `updated`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, Now(), Now())
                         ON DUPLICATE KEY UPDATE point = ?, compliance_status = ?";
-            $paramType = "iiisissis";
+            $paramType = "iiisiissis";
             $paramValue = array(
                 $answer['company_id'],
                 $answer['audit_id'],
                 $answer['section_id'],
                 $answer['question_no'],
+                $answer['score'],
                 $answer['point'],
                 $answer['compliance_status'],
                 $answer['finding'],

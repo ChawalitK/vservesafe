@@ -1,5 +1,4 @@
 <?php
-// require_once("model/DBController.php");
 require_once("model/ShecupFsmsQuestion.php");
 require_once("model/ShecupFsmsAnswer.php");
 
@@ -8,11 +7,25 @@ $db_handle = new DBController();
 $FsmsQuestion = new ShecupFsmsQuestion();
 
 if(isset($_POST) && count($_POST)>0){
+
    // print_r($_POST);
+   // echo "<pre>";
+   // print_r($_FILES);
+
+   for($i=0;$i<count($_POST['q']);$i++){
+      for($j=1;$j<=count($_FILES);$j++){
+         if(isset($_FILES['file'.$j]["name"][$_POST['q'][$i]]))
+            print_r($_FILES['file'.$j]["name"][$_POST['q'][$i]]);
+
+            if(move_uploaded_file($_FILES['file'.$j]["tmp_name"][$_POST['q'][$i]],"uploaddir/".$_FILES['file'.$j]["name"][$_POST['q'][$i]]))
+            {
+                  echo $i . " อัพโหลดไฟล์<br>";
+            }
+      }
+   }
+
    $FsmsAnswer = new ShecupFsmsAnswer();
-   // $answer =  $FsmsAnswer->addAnswer($_POST);
-   $answerx =  $FsmsAnswer->addAnswerx($_POST);
-   // print_r($answerx);
+   $answerx =  $FsmsAnswer->addAnswer($_POST);
 }
 
 $sections = $FsmsQuestion->getAllSection('th');
@@ -38,7 +51,6 @@ foreach ($sections as $k => $v) {
 // print_r($last_section_id);
 
 $question = $FsmsQuestion->getQuestionBySection('th', isset($_GET['sid']) ? $_GET['sid'] : end($last_section_id));
-
 $section_question_list = "";
 
 foreach ($question as $k => $v) {
@@ -49,7 +61,14 @@ foreach ($question as $k => $v) {
     <input type="radio" id="css" name="a['.$question[$k]["question_no"].']" value="CSS">
     <label for="css">CSS</label><br>
     <input type="radio" id="javascript" name="a['.$question[$k]["question_no"].']" value="JavaScript">
-    <label for="javascript">JavaScript</label> 
+    <label for="javascript">JavaScript</label> <br/>
+
+    <label for="findings">findings</label> 
+    <input type="text" id="findings" name="findings['.$question[$k]["question_no"].']" value="findings"><br/><br/>
+    <input name="file1['.$question[$k]["question_no"].']" type="file" /><br />
+    <input name="file2['.$question[$k]["question_no"].']" type="file" /><br />
+    <input name="file3['.$question[$k]["question_no"].']" type="file" /><br />
+    <br /><br/>
     <br><hr>
     ';
 }
@@ -62,7 +81,7 @@ foreach ($question as $k => $v) {
 
 <h2>HTML Forms</h2>
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
    <?php echo $section_question_list;?>
    <input type="submit" value="Submit">
 </form> 
