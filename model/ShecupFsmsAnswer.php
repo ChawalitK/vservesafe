@@ -16,9 +16,12 @@ class ShecupFsmsAnswer
         $list_insert_id = array();
 
         for($i=0;$i<count($answer['q']);$i++){
+
+            $section_id = (explode(".",$answer['q'][$i]));
+
             $answer['company_id'] = 1;
             $answer['audit_id'] = 1;            
-            $answer['section_id'] = 1;
+            $answer['section_id'] = $section_id[0];
             $answer['question_no'] = $answer['q'][$i];
             $answer['point'] = 1;
             $answer['compliance_status'] = $answer['a'][$answer['q'][$i]];
@@ -38,9 +41,55 @@ class ShecupFsmsAnswer
             $insertId = $this->db_handle->insert($query, $paramType, $paramValue);
             array_push($list_insert_id, $insertId);
         }
+
+        print_r($list_insert_id);
+
         return $list_insert_id;
     }
     
+    function addAnswerx($answer) {
+        // echo "<pre>";
+        // print_r($answer);
+        // exit;
+        $list_insert_id = array();
+
+        for($i=0;$i<count($answer['q']);$i++){
+            $section_id = (explode(".",$answer['q'][$i]));
+
+            $answer['company_id'] = 1;
+            $answer['audit_id'] = 1;            
+            $answer['section_id'] = $section_id[0];
+            $answer['question_no'] = $answer['q'][$i];
+            $answer['point'] = 5;
+            $answer['compliance_status'] = $answer['a'][$answer['q'][$i]];
+            $answer['finding'] = '1234444';
+
+            $query = "INSERT INTO shecup_fsms_answers_x(`company_id`, `audit_id`, `section_id`, `question_no`, `point`, `compliance_status`,
+                        `finding`, `created`, `updated`) VALUES (?, ?, ?, ?, ?, ?, ?, Now(), Now())
+                        ON DUPLICATE KEY UPDATE point = ?, compliance_status = ?";
+            $paramType = "iiisissis";
+            $paramValue = array(
+                $answer['company_id'],
+                $answer['audit_id'],
+                $answer['section_id'],
+                $answer['question_no'],
+                $answer['point'],
+                $answer['compliance_status'],
+                $answer['finding'],
+                $answer['point'],
+                $answer['compliance_status']
+            );
+
+            $insertId = $this->db_handle->insert($query, $paramType, $paramValue);
+            // print_r($insertId);
+            array_push($list_insert_id, $insertId);
+
+        }
+
+        return $list_insert_id;
+    }
+
+
     function editQuestion($name, $roll_number, $dob, $class, $student_id) {
         $query = "UPDATE shecup_fsms_question SET name = ?,roll_number = ?,dob = ?,class = ? WHERE id = ?";
         $paramType = "sissi";

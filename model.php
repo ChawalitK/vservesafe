@@ -10,15 +10,34 @@ $FsmsQuestion = new ShecupFsmsQuestion();
 if(isset($_POST) && count($_POST)>0){
    // print_r($_POST);
    $FsmsAnswer = new ShecupFsmsAnswer();
-   $answer =  $FsmsAnswer->addAnswer($_POST);
+   // $answer =  $FsmsAnswer->addAnswer($_POST);
+   $answerx =  $FsmsAnswer->addAnswerx($_POST);
+   // print_r($answerx);
 }
 
 $sections = $FsmsQuestion->getAllSection('th');
-foreach ($sections as $k => $v) {
-   echo '<a href="'.$_SERVER['PHP_SELF'].'?sid='.$sections[$k]["question_no"].'">'.$sections[$k]["question_no"].'.'.$sections[$k]["question"].'</a><br>';
+$last_section_id = array(1);
+
+foreach ($sections as $k => $v) { 
+
+   if($sections[$k]["section_id"] > 0){
+      array_push($last_section_id, $sections[$k]["section_id"]+1);
+   }
+
+   if (in_array($sections[$k]["question_no"], $last_section_id)) {
+      if( $sections[$k]["question_no"] == end($last_section_id)){
+         echo '<a href="'.$_SERVER['PHP_SELF'].'">'.$sections[$k]["question_no"].'.'.$sections[$k]["question"].'</a><br>';
+      }else{
+         echo '<a href="'.$_SERVER['PHP_SELF'].'?sid='.$sections[$k]["question_no"].'">'.$sections[$k]["question_no"].'.'.$sections[$k]["question"].'</a><br>';
+      }
+   }else{
+      echo '<span>'.$sections[$k]["question_no"].'.'.$sections[$k]["question"].'</span><br>';
+   }
 }
 
-$question = $FsmsQuestion->getQuestionBySection('th', isset($_GET['sid']) ? $_GET['sid'] : 1);
+// print_r($last_section_id);
+
+$question = $FsmsQuestion->getQuestionBySection('th', isset($_GET['sid']) ? $_GET['sid'] : end($last_section_id));
 
 $section_question_list = "";
 

@@ -10,7 +10,12 @@ class ShecupFsmsQuestion
     
     function getAllSection($lang="th") {
 
-        $query = "SELECT * FROM shecup_fsms_question WHERE parent_id = 0 and question_lang = ? order by id asc";
+        $query = "SELECT shecup_fsms_question.question, shecup_fsms_question.question_no, shecup_fsms_answers_x.section_id 
+                    FROM shecup_fsms_question  
+                    LEFT JOIN shecup_fsms_answers_x ON shecup_fsms_question.question_no = shecup_fsms_answers_x.section_id 
+                    WHERE shecup_fsms_question.parent_id = 0 and shecup_fsms_question.question_lang = ?
+                    group by shecup_fsms_question.id
+                    order by shecup_fsms_question.id asc";
         $paramType = "s";
         $paramValue = array(
             $lang
