@@ -4,10 +4,17 @@ require_once("model/ShecupFsmsQuestion.php");
 require_once("model/ShecupFsmsAnswer.php");
 
 $db_handle = new DBController();
-
 $FsmsQuestion = new ShecupFsmsQuestion();
 
-if(isset($_POST) && count($_POST)>0){
+  //  print_r($_POST);
+  //  echo "<pre>";
+
+if(isset($_POST['lang'])){
+  $_SESSION['lang'] = $_POST['lang'];
+}
+
+// print_r($_SESSION);
+if(isset($_POST['q']) && count($_POST['q'])>0){
 
    // print_r($_POST);
    // echo "<pre>";
@@ -29,7 +36,7 @@ if(isset($_POST) && count($_POST)>0){
    $answerx =  $FsmsAnswer->addAnswer($_POST);
 }
 
-$sections = $FsmsQuestion->getAllSection('en');
+$sections = $FsmsQuestion->getAllSection($_SESSION['lang']);
 $last_section_id = array(1);
 
 $list_step = "";
@@ -52,8 +59,8 @@ foreach ($sections as $k => $v) {
 }
 
 
-$question = $FsmsQuestion->getQuestionBySection('en', isset($_GET['sid']) ? $_GET['sid'] : end($last_section_id));
-$section  = $FsmsQuestion->getSectionById('en', isset($_GET['sid']) ? $_GET['sid'] : end($last_section_id));
+$question = $FsmsQuestion->getQuestionBySection($_SESSION['lang'], isset($_GET['sid']) ? $_GET['sid'] : end($last_section_id));
+$section  = $FsmsQuestion->getSectionById($_SESSION['lang'], isset($_GET['sid']) ? $_GET['sid'] : end($last_section_id));
 
 // echo "<pre>";
 // print_r($section);
@@ -88,23 +95,31 @@ foreach ($question as $k => $v) {
       $bgcolor_risk_level = 'bg-muted-lt';
     }
 
-    $list_question .= '<div class="card-body"><div class="divide-y">
-                        <div>
-                          <div class="row">
-                            <div class="col-auto">
-                              <span class="avatar bg-primary text-primary-fg">'.$question[$k]['question_no'].'</span>
-                            </div>
-                            <div class="col">
-                              <div class="text-truncate" style="white-space: normal;">
-                                <strong>'.$question[$k]['question'].'</strong>
-                              </div>
-                            </div>
-                            <div class="col-auto align-self-center">
-                              <span class="avatar '.$bgcolor_risk_level.'">'.$question[$k]['risk_level'].'</span>
-                              <span class="avatar bg-green text-primary-fg">'.$question[$k]['score'].'</span>
-                            </div>
-                          </div>
+    $list_question .= '
+    
+    <div class="card" style="margin-bottom:20px;">
+                  <div class="card-header">
+                    <div>
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="avatar bg-primary text-primary-fg" style="font-size:17px;">'.$question[$k]['question_no'].'</span>
                         </div>
+                        <div class="col">
+                          <strong style="font-size:17px;">'.$question[$k]['question'].'</strong>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-actions" style="min-width:95px;">
+                      <span class="avatar '.$bgcolor_risk_level.'">'.$question[$k]['risk_level'].'</span>
+                      <span class="avatar bg-green text-primary-fg">'.$question[$k]['score'].'</span>
+                    </div>
+                  </div>
+    
+    
+    
+    
+    <div class="card-body"><div class="divide-y">
+  
                         <div>
                           <div class="row">
                             <div class="mb-3">
@@ -129,6 +144,8 @@ foreach ($question as $k => $v) {
                           </div>
                         </div>
                       </div>
+                      </div>
+
                       </div>
                       ';
 
@@ -161,7 +178,7 @@ foreach ($question as $k => $v) {
 <script src="js/demo-theme.min.js"></script>
 <div class="page">
   <!-- Navbar -->
-  <?php //include_once("php/html_menu.php");?>
+  <?php include_once("php/html_menu.php");?>
   <div class="page-wrapper">
     <!-- Page header -->
     <div class="page-header d-print-none">
@@ -178,13 +195,76 @@ foreach ($question as $k => $v) {
     <!-- Page body -->
     <div class="page-body">
           <div class="container-xl">
-            <div class="row row-cards">
+
+
+          <!-- tab -->
+
+          <div class="card">
+                  <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <a href="#tabs-home-8" class="nav-link active" data-bs-toggle="tab" aria-selected="true" role="tab">FSMS Checklist</a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <a href="#tabs-profile-8" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">FSMS Audit Reports</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                    <div class="tab-content">
+                      <div class="tab-pane fade active show" id="tabs-home-8" role="tabpanel">
+                        <!-- <h4>Home tab</h4> -->
+                      
+                      <!-- xxx -->
+                      <div class="row row-cards">
+            <div class="col-md-4">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="subheader">Percentage Achievement</div>
+                    <div class="h3 m-0" style="font-size:27px;">99.33%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="subheader">Total Score</div>
+                    <div class="h3 m-0" style="font-size:27px;">65.0</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="subheader">Total Point</div>
+                    <div class="h3 m-0" style="font-size:27px;">60.0</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="subheader">Total Answer</div>
+                    <div class="h3 m-0" style="font-size:27px;">14</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="subheader">Total N/A</div>
+                    <div class="h3 m-0" style="font-size:27px;">2</div>
+                  </div>
+                </div>
+              </div>
+
+
 
 
             <div class="col-lg-4 d-none d-md-block d-lg-block">
                 <div class="card">
                   <div class="card-header bg-primary text-purple-fg">
-                    <h3 class="card-title ">Verification Section</h3>
+                    <h3 class="card-title " style="font-size:19px;">Verification Section</h3>
                   </div>
                   <div class="card-body">
                     <!-- <h3 class="card-title">Section</h3> -->
@@ -217,13 +297,13 @@ foreach ($question as $k => $v) {
               </div>
 
 
-              <div class="col-lg-8">
+              <div class="col-lg-8" style="margin-bottom:60px">
 
 
                 <div class="card">
                   <form action="" method="post" class="card">
                   <div class="card-header bg-purple text-purple-fg">
-                    <h3 class="card-title "><?php echo $section[0]['question_no'].". ".$section[0]['question'];?></h3>
+                    <h3 class="card-title " style="font-size:19px;"><?php echo $section[0]['question_no'].". ".$section[0]['question'];?></h3>
                   </div>
                   <div class="card-body">
 
@@ -242,8 +322,10 @@ foreach ($question as $k => $v) {
 
 
                   </div>
-                  <div class="card-footer">
-                    <input type="submit" value="Submit">
+                  <div class="card-footer text-center">
+                    <!-- <input type="submit" value="Submit"> -->
+                    <!-- <button class="btn btn-primary" type="submit">Submit</button> -->
+                    <button class="btn btn-primary" type="submit">Submit</button>
                   </div>
                   </form> 
                 </div>
@@ -252,13 +334,46 @@ foreach ($question as $k => $v) {
               </div>
 
             </div>
+                      
+                      <!-- xxx -->
 
+                      </div>
+                      <div class="tab-pane fade" id="tabs-profile-8" role="tabpanel">
+                        <!-- <h4>Profile tab</h4> -->
 
+ 
+
+                        <table id="example" class="table card-table" style="width:100%">
+              <thead>
+                  <tr>
+                      <th>No. </th>
+                      <th>Audit Date </th>
+                      <th>Key in Name</th>
+                      <th>Audit Name</th>
+                      <th>Total Score</th>
+                      <th>Total Point</th>
+                  </tr>
+              </thead>
+          </table>
 
 
 
             
-          </div>
+                      </div>
+
+
+
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+          <!-- end tab -->
+
+
 
           <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasStart" aria-labelledby="offcanvasStartLabel">
           <div class="offcanvas-header">
@@ -333,7 +448,26 @@ foreach ($question as $k => $v) {
 </div>
 <!-- Libs JS -->
 <!-- Tabler Core -->
-<script src="js/tabler.min.js" defer></script>
-<script src="js/demo.min.js" defer></script>
+<!-- <script src="js/tabler.min.js" defer></script> -->
+<!-- <script src="js/demo.min.js" defer></script> -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" defer></script>
+    <link href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css" defer></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> 
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script> 
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.bootstrap5.js"></script> 
+
+    <script>
+      $('#example').DataTable({
+          ajax: 'staff.php',
+          processing: true,
+          serverSide: true
+      });
+    </script>
+
+
+
 </body>
 </html>

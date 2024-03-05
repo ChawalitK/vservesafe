@@ -66,7 +66,7 @@
               </svg>
               Sponsor
             </a>
-            <form action="<?php echo $_SERVER["PHP_SELF"]. '?' . $_SERVER['QUERY_STRING'];?>" method="post" id="myForm">
+            <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post" id="myForm">
             <select id="myDropdown" class="form-select w-auto" name="lang" onchange="myFunction()">
             <!-- <select class="form-select w-auto" name='lang' id='lang'> -->
                 <option value="th" <?php if($_SESSION['lang'] == 'th'){echo "selected";}?>>TH</option>
@@ -324,7 +324,7 @@
                     if($_SESSION['lang'] == 'en'){
 
                       echo '
-                      <a class="dropdown-item" href="shecup_fsms_audit.php?id=1" rel="noopener">
+                      <a class="dropdown-item" href="shecup_fsms_audit.php" rel="noopener">
                         FSMS Audit Verification 
                       </a>';
 
