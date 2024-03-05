@@ -37,6 +37,21 @@ class ShecupFsmsQuestion
         return $result;
     }
 
+    function getSectionById($question_lang='th', $question_no=1) {
+        $query = "SELECT * FROM shecup_fsms_question WHERE question_lang = ? and question_no = ? limit 1";
+        $paramType = "ss";
+        $paramValue = array(
+            $question_lang,
+            $question_no
+        );
+        
+        $result = $this->db_handle->runQuery($query, $paramType, $paramValue);
+        return $result;
+    }
+
+
+
+
     function addQuestion($name, $roll_number, $dob, $class) {
         $query = "INSERT INTO shecup_fsms_question (name,roll_number,dob,class) VALUES (?, ?, ?, ?)";
         $paramType = "siss";

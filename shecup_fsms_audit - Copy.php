@@ -1,151 +1,129 @@
 <?php
 session_start();
-require_once("model/ShecupFsmsQuestion.php");
-require_once("model/ShecupFsmsAnswer.php");
+include_once("php/database.class.php");
 
-$db_handle = new DBController();
-
-$FsmsQuestion = new ShecupFsmsQuestion();
-
-if(isset($_POST) && count($_POST)>0){
-
-   // print_r($_POST);
-   // echo "<pre>";
-   // print_r($_FILES);
-
-   for($i=0;$i<count($_POST['q']);$i++){
-      for($j=1;$j<=count($_FILES);$j++){
-         if(isset($_FILES['file'.$j]["name"][$_POST['q'][$i]]))
-            print_r($_FILES['file'.$j]["name"][$_POST['q'][$i]]);
-
-            if(move_uploaded_file($_FILES['file'.$j]["tmp_name"][$_POST['q'][$i]],"uploaddir/".$_FILES['file'.$j]["name"][$_POST['q'][$i]]))
-            {
-                  echo $i . " อัพโหลดไฟล์<br>";
-            }
-      }
-   }
-
-   $FsmsAnswer = new ShecupFsmsAnswer();
-   $answerx =  $FsmsAnswer->addAnswer($_POST);
+if(!isset($_SESSION['lang'])){
+  $_SESSION['lang'] = 'th';
 }
 
-$sections = $FsmsQuestion->getAllSection('en');
-$last_section_id = array(1);
+if(isset($_POST['lang']) && strlen($_POST['lang'])>0){
+  $_SESSION['lang'] = $_POST['lang'];
 
+  if($_POST['lang'] == 'en'){
+    header("location:shecup_fsms_audit.php?id=1");
+  }else{
+    header("location:shecup_fsms_audit.php?id=87");
+  }
+}
+
+$db = new Database();
+$db->connect();
+$db->select('shecup_fsms_audit','id, question_no, question',NULL,'parent_id = 0 and question_lang="'.$_SESSION['lang'].'"','id ASC'); // Table name, Column Names, JOIN, WHERE conditions, ORDER BY conditions
+$res = $db->getResult();
+// echo "<pre>";
+// print_r($res);
 $list_step = "";
 
-foreach ($sections as $k => $v) { 
-
-   if($sections[$k]["section_id"] > 0){
-      array_push($last_section_id, $sections[$k]["section_id"]+1);
-   }
-
-   if (in_array($sections[$k]["question_no"], $last_section_id)) {
-      if( $sections[$k]["question_no"] == end($last_section_id)){
-         $list_step .= '<li class="step-item active" style="word-wrap: normal;"><a href="'.$_SERVER['PHP_SELF'].'">'.$sections[$k]["question_no"].'.'.$sections[$k]["question"].'</a></li>';
-      }else{
-         $list_step .= '<li class="step-item" style="word-wrap: normal;"><a href="'.$_SERVER['PHP_SELF'].'?sid='.$sections[$k]["question_no"].'">'.$sections[$k]["question_no"].'.'.$sections[$k]["question"].'</a></li>';
-      }
-   }else{
-      $list_step .= '<li class="step-item" style="word-wrap: normal;"><span>'.$sections[$k]["question_no"].'.'.$sections[$k]["question"].'</span></li>';
-   }
+for($i=0;$i<count($res);$i++){
+  $list_step .= '<li class="step-item" style="word-wrap: normal;"><a href="'.$_SERVER["PHP_SELF"].'?id='.$res[$i]['id'].'">'.$res[$i]['question'].'</a></li>';
 }
 
+// if(!isset($_GET['id']) && $_SESSION['lang'] == 'en' && !isset($_POST['lang'])){
+//   $_GET['id'] = 1;
+// }else{
+//   $_GET['id'] = 87;
+// }
 
-$question = $FsmsQuestion->getQuestionBySection('en', isset($_GET['sid']) ? $_GET['sid'] : end($last_section_id));
-$section  = $FsmsQuestion->getSectionById('en', isset($_GET['sid']) ? $_GET['sid'] : end($last_section_id));
+
+if(isset($_GET['id']) && $_GET['id'] > 0){
+
+  $db->select('shecup_fsms_audit','id, question_no, question',NULL,'id ='.$_GET['id'].'','id ASC'); // Table name, Column Names, JOIN, WHERE conditions, ORDER BY conditions
+  $res = $db->getResult();
+  $section_id = $res[0]['id'];
+  $section_no = $res[0]['question_no'];
+  $section_question = $res[0]['question'];
 
 // echo "<pre>";
-// print_r($section);
+// print_r($res);
 
-// $section_question_list = "";
-$list_question = "";
 
-foreach ($question as $k => $v) {
-  //  $section_question_list .= '<label for="fname">'.$question[$k]["question_no"].' '. $question[$k]["question"].'</label><br>
-  //  <input type="text" id="fname" name="q[]" value="'.$question[$k]["question_no"].'" ><br>
-  //  <input type="radio" id="html" name="a['.$question[$k]["question_no"].']" value="HTML" checked >
-  //   <label for="html">HTML</label><br>
-  //   <input type="radio" id="css" name="a['.$question[$k]["question_no"].']" value="CSS">
-  //   <label for="css">CSS</label><br>
-  //   <input type="radio" id="javascript" name="a['.$question[$k]["question_no"].']" value="JavaScript">
-  //   <label for="javascript">JavaScript</label> <br/>
+  $db->select('shecup_fsms_audit','id, question_no, question,risk_level,score',NULL,'parent_id ='.$_GET['id'].'','id ASC'); // Table name, Column Names, JOIN, WHERE conditions, ORDER BY conditions
+  $res = $db->getResult();
 
-  //   <label for="findings">findings</label> 
-  //   <input type="text" id="findings" name="findings['.$question[$k]["question_no"].']" value="findings"><br/><br/>
-  //   <input name="file1['.$question[$k]["question_no"].']" type="file" /><br />
-  //   <input name="file2['.$question[$k]["question_no"].']" type="file" /><br />
-  //   <input name="file3['.$question[$k]["question_no"].']" type="file" /><br />
-  //   <br /><br/>
-  //   <br><hr>
-  //   ';
+  $list_question = "";
 
-    if($question[$k]['risk_level'] == "C"){
+
+// echo "<pre>";
+// print_r($res);
+
+  for($i=0;$i<count($res);$i++){
+
+    // echo $res[$i]['risk_level'];
+
+
+    if($res[$i]['risk_level'] == "C"){
       $bgcolor_risk_level = 'bg-red text-primary-fg';
-    }else if($question[$k]['risk_level'] == "M"){
+    }else if($res[$i]['risk_level'] == "M"){
       $bgcolor_risk_level = 'bg-yellow text-primary-fg';
     }else{
       $bgcolor_risk_level = 'bg-muted-lt';
     }
 
     $list_question .= '<div class="card-body"><div class="divide-y">
-                        <div>
-                          <div class="row">
-                            <div class="col-auto">
-                              <span class="avatar bg-primary text-primary-fg">'.$question[$k]['question_no'].'</span>
-                            </div>
-                            <div class="col">
-                              <div class="text-truncate" style="white-space: normal;">
-                                <strong>'.$question[$k]['question'].'</strong>
-                              </div>
-                            </div>
-                            <div class="col-auto align-self-center">
-                              <span class="avatar '.$bgcolor_risk_level.'">'.$question[$k]['risk_level'].'</span>
-                              <span class="avatar bg-green text-primary-fg">'.$question[$k]['score'].'</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div>
-                          <div class="row">
-                            <div class="mb-3">
-                              <label class="form-label"><strong>Compliance Status</strong></label>
-                              <input type="hidden" id="q['.$question[$k]["question_no"].']" name="q[]" value="'.$question[$k]["question_no"].'">
-                              <input type="hidden" name="score['.$question[$k]["question_no"].']" value="'.$question[$k]["score"].'" >
-                              <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="a['.$question[$k]['question_no'].']" value="N/A"/>
-                                <span class="form-check-label">N/A</span>
-                              </label>
-                              <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="a['.$question[$k]['question_no'].']" value="Compliance"/>
-                                <span class="form-check-label">Compliance</span>
-                              </label>
-                              <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="a['.$question[$k]['question_no'].']" value="Non Compliance"/>
-                                <span class="form-check-label">Non Compliance</span>
-                              </label>
-                              <label class="form-label"><strong>Findings</strong></label>
-                              <textarea class="form-control" rows="3" name="findings['.$question[$k]["question_no"].']" value=""></textarea>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      </div>
-                      ';
+    <div>
+      <div class="row">
+        <div class="col-auto">
+          <span class="avatar bg-primary text-primary-fg">'.$res[$i]['question_no'].'</span>
+        </div>
+        <div class="col">
+          <div class="text-truncate" style="white-space: normal;">
+            <strong>'.$res[$i]['question'].'</strong>
+          </div>
+        </div>
+        <div class="col-auto align-self-center">
+          <span class="avatar '.$bgcolor_risk_level.'">'.$res[$i]['risk_level'].'</span>
+          <span class="avatar bg-green text-primary-fg">'.$res[$i]['score'].'</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="row">
+        <div class="mb-3">
+          <label class="form-label"><strong>Compliance Status</strong></label>
+          <label class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="answer['.$res[$i]['question_no'].']" checked="" />
+            <span class="form-check-label">Non Applicant</span>
+          </label>
+          <label class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="answer['.$res[$i]['question_no'].']" />
+            <span class="form-check-label">Compliance</span>
+          </label>
+          <label class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="answer['.$res[$i]['question_no'].']" />
+            <span class="form-check-label">Non Compliance</span>
+          </label>
+          <label class="form-label"><strong>Findings</strong></label>
+          <textarea class="form-control" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+    ';
+  }
 
+
+// echo "<pre>";
+// print_r($res);
 
 }
-
-
-
-
-
 
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<?php include_once("php/html_head.php");?>
+<?php //include_once("php/html_head.php");?>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -221,31 +199,26 @@ foreach ($question as $k => $v) {
 
 
                 <div class="card">
-                  <form action="" method="post" class="card">
                   <div class="card-header bg-purple text-purple-fg">
-                    <h3 class="card-title "><?php echo $section[0]['question_no'].". ".$section[0]['question'];?></h3>
+                    <h3 class="card-title "><?php echo $section_no.". ".$section_question;?></h3>
                   </div>
                   <div class="card-body">
 
-
+                  <form action="https://httpbin.org/post" method="post" class="card">
 
 
 
 
                   
-                    <?php echo $list_question;?>
+                  <?php echo $list_question;?>
 
 
 
 
-
+                    </form> 
 
 
                   </div>
-                  <div class="card-footer">
-                    <input type="submit" value="Submit">
-                  </div>
-                  </form> 
                 </div>
 
 

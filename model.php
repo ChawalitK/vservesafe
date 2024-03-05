@@ -28,7 +28,7 @@ if(isset($_POST) && count($_POST)>0){
    $answerx =  $FsmsAnswer->addAnswer($_POST);
 }
 
-$sections = $FsmsQuestion->getAllSection('th');
+$sections = $FsmsQuestion->getAllSection('en');
 $last_section_id = array(1);
 
 foreach ($sections as $k => $v) { 
@@ -50,7 +50,7 @@ foreach ($sections as $k => $v) {
 
 // print_r($last_section_id);
 
-$question = $FsmsQuestion->getQuestionBySection('th', isset($_GET['sid']) ? $_GET['sid'] : end($last_section_id));
+$question = $FsmsQuestion->getQuestionBySection('en', isset($_GET['sid']) ? $_GET['sid'] : end($last_section_id));
 $section_question_list = "";
 
 foreach ($question as $k => $v) {

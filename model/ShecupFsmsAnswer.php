@@ -18,30 +18,35 @@ class ShecupFsmsAnswer
         for($i=0;$i<count($answer['q']);$i++){
             $section_id = (explode(".",$answer['q'][$i]));
 
-            $answer['company_id'] = 1;
-            $answer['audit_id'] = 1;            
-            $answer['section_id'] = $section_id[0];
-            $answer['question_no'] = $answer['q'][$i];
-            $answer['score'] = 5;
-            $answer['point'] = 5;
-            $answer['compliance_status'] = $answer['a'][$answer['q'][$i]];
-            $answer['finding'] = '1234444';
+            $company_id = 1;
+            $audit_id = 1;            
+            $section_id = $section_id[0];
+            $question_no = $answer['q'][$i];
+            $score = $answer['score'][$answer['q'][$i]];
+            $compliance_status = $answer['a'][$answer['q'][$i]];
+            $findings = $answer['findings'][$answer['q'][$i]];
+
+            if($compliance_status == 'Compliance'){
+                $point = $score;
+            }else{
+                $point = 0;
+            }
 
             $query = "INSERT INTO shecup_fsms_answers(`company_id`, `audit_id`, `section_id`, `question_no`, `score`, `point`, `compliance_status`,
                         `finding`, `created`, `updated`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, Now(), Now())
                         ON DUPLICATE KEY UPDATE point = ?, compliance_status = ?";
             $paramType = "iiisiissis";
             $paramValue = array(
-                $answer['company_id'],
-                $answer['audit_id'],
-                $answer['section_id'],
-                $answer['question_no'],
-                $answer['score'],
-                $answer['point'],
-                $answer['compliance_status'],
-                $answer['finding'],
-                $answer['point'],
-                $answer['compliance_status']
+                $company_id,
+                $audit_id,
+                $section_id,
+                $question_no,
+                $score,
+                $point,
+                $compliance_status,
+                $findings,
+                $point,
+                $compliance_status
             );
 
             $insertId = $this->db_handle->insert($query, $paramType, $paramValue);
