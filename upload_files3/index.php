@@ -8,7 +8,9 @@
 
 <!-- Required header files -->
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<script type="text/javascript" src="js/jquery_1.5.2.js"></script>
+<!-- <script type="text/javascript" src="js/jquery_1.5.2.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script type="text/javascript" src="js/vasplus_uploader.js"></script>
 
 
@@ -18,7 +20,9 @@
 <body>
 
 
-<br clear="all"><center><div style=" width:1000px; font-family:Verdana, Geneva, sans-serif; font-size:24px;">Preview and upload multiple files using Jquery and PHP</div><br clear="all" /><br clear="all" />
+<br clear="all">
+<center><div style=" width:1000px; font-family:Verdana, Geneva, sans-serif; font-size:24px;">Preview and upload multiple files </div>
+<br clear="all" /><br clear="all" />
 
 
 
