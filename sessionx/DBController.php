@@ -62,6 +62,13 @@ class DBController {
         return $insertId;
     }
     
+    function replace($query, $param_type, $param_value_array) {
+        $sql = $this->conn->prepare($query);
+        $this->bindQueryParams($sql, $param_type, $param_value_array);
+        $rexecute = $sql->execute();
+        return $sql->affected_rows;
+    }
+
     function update($query, $param_type, $param_value_array) {
         $sql = $this->conn->prepare($query);
         $this->bindQueryParams($sql, $param_type, $param_value_array);
