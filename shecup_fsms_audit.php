@@ -1,13 +1,21 @@
 <?php
 session_start();
+require_once("model/ShecupFsmsChecklist.php");
 require_once("model/ShecupFsmsQuestion.php");
 require_once("model/ShecupFsmsAnswer.php");
 
 $db_handle = new DBController();
 $FsmsQuestion = new ShecupFsmsQuestion();
 
-  //  print_r($_POST);
-  //  echo "<pre>";
+if(isset($_POST['action']) == 'newchecklist'){
+  // print_r($_POST);
+  $FsmsChecklist = new ShecupFsmsChecklist();
+  $checklist_id =  $FsmsChecklist->addChecklist($_POST);
+  // unset($_POST);
+  // print_r($checklist_id)
+  $_SESSION['checklist_id'] = $checklist_id;
+  header("Location:".$_SERVER['PHP_SELF']."?check=".$checklist_id);
+}
 
 if(isset($_POST['lang'])){
   $_SESSION['lang'] = $_POST['lang'];
@@ -36,7 +44,7 @@ if(isset($_POST['q']) && count($_POST['q'])>0){
    $answerx =  $FsmsAnswer->addAnswer($_POST);
 }
 
-$sections = $FsmsQuestion->getAllSection($_SESSION['lang']);
+$sections = $FsmsQuestion->getAllSection($_SESSION['lang'], 11);
 $last_section_id = array(1);
 
 $list_step = "";
@@ -173,6 +181,7 @@ foreach ($question as $k => $v) {
     font-family: 'Sarabun', sans-serif;
   }
 </style>
+
 </head>
 <body>
 <script src="js/demo-theme.min.js"></script>
@@ -183,13 +192,42 @@ foreach ($question as $k => $v) {
     <!-- Page header -->
     <div class="page-header d-print-none">
       <div class="container-xl">
-        <div class="row g-2 align-items-center">
+        <!-- <div class="row g-2 align-items-center">
           <div class="col">
             <h3 class="page-title" style="font-size:15px;color:#333333;">
                Home / SHECUP / FSMS Audit Verification  
             </h3>
           </div>
-        </div>
+        </div> -->
+
+        <div class="row g-2 align-items-center">
+              <div class="col">
+                <!-- Page pre-title -->
+                <div class="page-pretitle">
+                  Shec up
+                </div>
+                <h2 class="page-title">
+                  FSMS Audit Verification
+                </h2>
+              </div>
+              <!-- Page title actions -->
+              <div class="col-auto ms-auto d-print-none">
+                <div class="btn-list" id="newreports">
+
+                <!-- <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal-large">
+                    Large modal
+                  </a> -->
+
+                  <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-report">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
+                    Create new checklist
+                  </a>
+                </div>
+              </div>
+            </div>
+
+
       </div>
     </div>
     <!-- Page body -->
@@ -202,19 +240,45 @@ foreach ($question as $k => $v) {
           <div class="card">
                   <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs" role="tablist">
-                      <li class="nav-item" role="presentation">
-                        <a href="#tabs-home-8" class="nav-link active" data-bs-toggle="tab" aria-selected="true" role="tab">FSMS Checklist</a>
+                      <li class="nav-item" role="presentation" >
+                        <a href="#tabs-home-8" id="tab-bar-trigger_1" class="nav-link" data-bs-toggle="tab" aria-selected="true" role="tab">FSMS Checklist</a>
                       </li>
                       <li class="nav-item" role="presentation">
-                        <a href="#tabs-profile-8" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">FSMS Audit Reports</a>
+                        <a href="#tabs-profile-8" id="tab-bar-trigger_2" class="nav-link <?php if(isset($_POST['q'])) echo "active";?>" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">FSMS Audit Reports</a>
                       </li>
                     </ul>
                   </div>
                   <div class="card-body">
                     <div class="tab-content">
-                      <div class="tab-pane fade active show" id="tabs-home-8" role="tabpanel">
+                      <div class="tab-pane fade " id="tabs-home-8" role="tabpanel">
                         <!-- <h4>Home tab</h4> -->
                       
+
+
+
+ <!-- ccc -->
+
+ <table id="example" class="table card-table" style="width:100%">
+              <thead>
+                  <tr>
+                      <th>No. </th>
+                      <th>Audit Date </th>
+                      <th>Key in Name</th>
+                      <th>Audit Name</th>
+                      <th>Total Score</th>
+                      <th>Total Point</th>
+                  </tr>
+              </thead>
+          </table>
+
+<!-- ccc -->
+
+
+                      </div>
+                      <div class="tab-pane fade <?php if(isset($_POST['q'])) echo "active show";?>" id="tabs-profile-8" role="tabpanel">
+                        <!-- <h4>Profile tab</h4> -->
+
+<!-- ccccccccc -->
                       <!-- xxx -->
                       <div class="row row-cards">
             <div class="col-md-4">
@@ -301,7 +365,7 @@ foreach ($question as $k => $v) {
 
 
                 <div class="card">
-                  <form action="" method="post" class="card">
+                  <form action="" method="post" class="card" >
                   <div class="card-header bg-purple text-purple-fg">
                     <h3 class="card-title " style="font-size:19px;"><?php echo $section[0]['question_no'].". ".$section[0]['question'];?></h3>
                   </div>
@@ -336,28 +400,6 @@ foreach ($question as $k => $v) {
             </div>
                       
                       <!-- xxx -->
-
-                      </div>
-                      <div class="tab-pane fade" id="tabs-profile-8" role="tabpanel">
-                        <!-- <h4>Profile tab</h4> -->
-
- 
-
-                        <table id="example" class="table card-table" style="width:100%">
-              <thead>
-                  <tr>
-                      <th>No. </th>
-                      <th>Audit Date </th>
-                      <th>Key in Name</th>
-                      <th>Audit Name</th>
-                      <th>Total Score</th>
-                      <th>Total Point</th>
-                  </tr>
-              </thead>
-          </table>
-
-
-
             
                       </div>
 
@@ -446,10 +488,109 @@ foreach ($question as $k => $v) {
     <?php include_once("php/html_footer.php");?>
   </div>
 </div>
+
+    <div class="modal modal-blur fade" id="modal-report" tabindex="-1" style="display: none;" aria-hidden="true">
+    <form action="" method="post" id="newchecklist">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">New FSMS Checklist</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="mb-3">
+                  <label class="form-label">Auditor name</label>
+                  <div class="input-group input-group-flat">
+                    <!-- <span class="input-group-text">
+                      https://tabler.io/reports/
+                    </span> -->
+                    <input type="text" name="auditor_name" id="auditor_name" class="form-control" value="<?=$_SESSION['firstname']." ".$_SESSION['lastname'];?>" autocomplete="off" disabled="">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-5">
+                <div class="mb-3">
+                  <label class="form-label">Checklist type</label>
+                  <select class="form-select" name="checklist_type">
+                    <option value="internal">Internal Audit</option>
+                    <option value="external">External Audit</option>
+                  </select>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="mb-3">
+                  <label class="form-label">Site name</label>
+                  <div class="input-group input-group-flat">
+                    <!-- <span class="input-group-text">
+                      https://tabler.io/reports/
+                    </span> -->
+                    <input type="text" name="site_name" id="site_name" class="form-control" value="" placeholder="Site name" autocomplete="off" disabled="">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="mb-3">
+                  <label class="form-label">Reporting date</label>
+                  <!-- <input type="date" class="form-control" value="<?=date("mm/dd/yyyy");?>">
+                 -->
+                 <div class="input-icon">
+                  <span class="input-icon-addon"><!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"></path><path d="M16 3v4"></path><path d="M8 3v4"></path><path d="M4 11h16"></path><path d="M11 15h1"></path><path d="M12 15v3"></path></svg>
+                  </span>
+                  <input class="form-control" placeholder="Select a date" name="checklist_date" id="datepicker-icon-prepend" value="<?=date("Y-m-d");?>">
+                </div>
+
+
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="col-lg-12">
+                <div>
+                  <label class="form-label">Additional information</label>
+                  <textarea class="form-control" rows="3" name="additional"></textarea>
+                </div>
+              </div>
+
+
+          </div>
+
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button> -->
+
+            <!-- <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button> -->
+            <!-- <a href="#" class="btn me-auto" data-bs-dismiss="modal">
+              Cancel
+            </a> -->
+
+            <button type="reset" class="btn  me-auto" data-bs-dismiss="modal">
+                Cancel
+            </button>
+            <input type="hidden" name="action" value="newchecklist">
+            <button type="button" id="submit_button" class="btn btn-primary" data-bs-dismiss="modal">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
+                Create new checklist
+            </button>
+
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+
 <!-- Libs JS -->
 <!-- Tabler Core -->
 <!-- <script src="js/tabler.min.js" defer></script> -->
-<!-- <script src="js/demo.min.js" defer></script> -->
+
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" defer></script>
     <link href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css" defer></script>
@@ -459,15 +600,64 @@ foreach ($question as $k => $v) {
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script> 
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.bootstrap5.js"></script> 
 
+    <script src="js/litepicker.js"></script> 
+    <!-- <script src="js/demo.min.js" defer></script> -->
+<!-- <script src="js/tabler.min.js" defer></script> -->
     <script>
       $('#example').DataTable({
           ajax: 'staff.php',
           processing: true,
           serverSide: true
       });
+
+
+      $("#tab-bar-trigger_1").click(changeClass);
+
+        function changeClass() {
+  
+          $("#newreports").removeClass("d-none");
+  
+        }
+
+      $("#tab-bar-trigger_2").click(changeClass2);
+
+        function changeClass2() {
+
+          $("#newreports").addClass("d-none");
+      }
+
+
+
+
+      $("#submit_button").click(function(){        
+        $("#site_name").prop('disabled', false);
+        $("#auditor_name").prop("disabled", false);
+        $("#newchecklist").submit(); // Submit the form
+      });
+
+
+
+
     </script>
 
 
+  <script>
+    // @formatter:off
+    document.addEventListener("DOMContentLoaded", function () {
+    	window.Litepicker && (new Litepicker({
+    		element: document.getElementById('datepicker-icon-prepend'),
+    		buttonText: {
+    			previousMonth: `<!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>`,
+    			nextMonth: `<!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>`,
+    		},
+    	}));
+
+      $(this).find("input").first().focus()
+    });
+    // @formatter:on
+  </script>
 
 </body>
 </html>

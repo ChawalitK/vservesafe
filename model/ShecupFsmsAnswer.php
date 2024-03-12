@@ -13,13 +13,16 @@ class ShecupFsmsAnswer
         // echo "<pre>";
         // print_r($answer);
         // exit;
+
+        $_SESSION['checklist_id'] = 11;
+
         $list_insert_id = array();
 
         for($i=0;$i<count($answer['q']);$i++){
             $section_id = (explode(".",$answer['q'][$i]));
 
             $company_id = 1;
-            $audit_id = 1;            
+            $audit_id = $_SESSION['checklist_id'];            
             $section_id = $section_id[0];
             $question_no = $answer['q'][$i];
             $score = $answer['score'][$answer['q'][$i]];

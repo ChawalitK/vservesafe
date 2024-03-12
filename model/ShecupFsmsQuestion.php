@@ -8,16 +8,18 @@ class ShecupFsmsQuestion
         $this->db_handle = new DBController();
     }
     
-    function getAllSection($lang="th") {
+    function getAllSection($lang="th", $checklist_id ) {
 
         $query = "SELECT shecup_fsms_question.question, shecup_fsms_question.question_no, shecup_fsms_answers.section_id 
                     FROM shecup_fsms_question  
                     LEFT JOIN shecup_fsms_answers ON shecup_fsms_question.question_no = shecup_fsms_answers.section_id 
+                    and shecup_fsms_answers.audit_id = ?
                     WHERE shecup_fsms_question.parent_id = 0 and shecup_fsms_question.question_lang = ?
                     group by shecup_fsms_question.id
                     order by shecup_fsms_question.id asc";
-        $paramType = "s";
+        $paramType = "is";
         $paramValue = array(
+            $checklist_id,
             $lang
         );
         
