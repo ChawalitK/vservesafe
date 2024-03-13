@@ -82,6 +82,18 @@ class ShecupFsmsChecklist
         $this->db_handle->update($query, $paramType, $paramValue);
     }
     
+
+    function getAuditById($checklist_id) {
+        $query = "SELECT * FROM shecup_fsms_audit WHERE id = ?";
+        $paramType = "i";
+        $paramValue = array(
+            $checklist_id
+        );
+        
+        $result = $this->db_handle->runQuery($query, $paramType, $paramValue);
+        return $result;
+    }
+
     function getQuestionById($student_id) {
         $query = "SELECT * FROM shecup_fsms_question WHERE id = ?";
         $paramType = "i";

@@ -62,11 +62,11 @@ class ShecupFsmsAudit
         $this->db_handle->update($query, $paramType, $paramValue);
     }
     
-    function getQuestionById($student_id) {
-        $query = "SELECT * FROM shecup_fsms_question WHERE id = ?";
+    function getAuditById($checklist_id) {
+        $query = "SELECT * FROM shecup_fsms_audit WHERE id = ?";
         $paramType = "i";
         $paramValue = array(
-            $student_id
+            $checklist_id
         );
         
         $result = $this->db_handle->runQuery($query, $paramType, $paramValue);

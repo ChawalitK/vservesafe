@@ -6,10 +6,10 @@ require_once("model/ShecupFsmsAnswer.php");
 
 $db_handle = new DBController();
 $FsmsQuestion = new ShecupFsmsQuestion();
+$FsmsChecklist = new ShecupFsmsChecklist();
 
 if(isset($_POST['action']) == 'newchecklist'){
   // print_r($_POST);
-  $FsmsChecklist = new ShecupFsmsChecklist();
   $checklist_id =  $FsmsChecklist->addChecklist($_POST);
   // unset($_POST);
   // print_r($checklist_id)
@@ -41,10 +41,10 @@ if(isset($_POST['q']) && count($_POST['q'])>0){
    }
 
    $FsmsAnswer = new ShecupFsmsAnswer();
-   $answerx =  $FsmsAnswer->addAnswer($_POST);
+   $answerx =  $FsmsAnswer->addAnswer($_POST, $_SESSION['checklist_id']);
 }
 
-$sections = $FsmsQuestion->getAllSection($_SESSION['lang'], 11);
+$sections = $FsmsQuestion->getAllSection($_SESSION['lang'],  $_SESSION['checklist_id']);
 $last_section_id = array(1);
 
 $list_step = "";
@@ -74,6 +74,29 @@ $section  = $FsmsQuestion->getSectionById($_SESSION['lang'], isset($_GET['sid'])
 // print_r($section);
 
 // $section_question_list = "";
+$checklist_record =  $FsmsChecklist->getAuditById($_SESSION['checklist_id']);
+// echo "<pre>";
+// print_r($checklist_record);
+
+
+  // [0] => Array
+  //     (
+  //         [id] => 7
+  //         [company_id] => 1
+  //         [audit_date] => 2024-03-13 15:21:56
+  //         [audit_type] => Internal
+  //         [name_keyin] => 
+  //         [name_audit] => Sasikarn Jongsook
+  //         [total_score] => 8.00
+  //         [total_point] => 8.00
+  //         [total_answer] => 
+  //         [total_na] => 
+  //         [additional] => test7
+  //         [created] => 2024-03-13 15:21:56
+  //         [updated] => 2024-03-13 15:22:14
+  //     )
+
+
 $list_question = "";
 
 foreach ($question as $k => $v) {
@@ -161,11 +184,6 @@ foreach ($question as $k => $v) {
 }
 
 
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -241,7 +259,7 @@ foreach ($question as $k => $v) {
                   <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs" role="tablist">
                       <li class="nav-item" role="presentation" >
-                        <a href="#tabs-home-8" id="tab-bar-trigger_1" class="nav-link" data-bs-toggle="tab" aria-selected="true" role="tab">FSMS Checklist</a>
+                        <a href="#tabs-home-8" id="tab-bar-trigger_1" class="nav-link <?php if(!isset($_POST['q'])) echo "active";?>" data-bs-toggle="tab" aria-selected="true" role="tab">FSMS Checklist</a>
                       </li>
                       <li class="nav-item" role="presentation">
                         <a href="#tabs-profile-8" id="tab-bar-trigger_2" class="nav-link <?php if(isset($_POST['q'])) echo "active";?>" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">FSMS Audit Reports</a>
@@ -250,30 +268,24 @@ foreach ($question as $k => $v) {
                   </div>
                   <div class="card-body">
                     <div class="tab-content">
-                      <div class="tab-pane fade " id="tabs-home-8" role="tabpanel">
+                      <div class="tab-pane fade <?php if(!isset($_POST['q'])) echo "active show";?>" id="tabs-home-8" role="tabpanel">
                         <!-- <h4>Home tab</h4> -->
-                      
-
-
-
- <!-- ccc -->
-
- <table id="example" class="table card-table" style="width:100%">
-              <thead>
-                  <tr>
-                      <th>No. </th>
-                      <th>Audit Date </th>
-                      <th>Key in Name</th>
-                      <th>Audit Name</th>
-                      <th>Total Score</th>
-                      <th>Total Point</th>
-                  </tr>
-              </thead>
-          </table>
-
-<!-- ccc -->
-
-
+                          <!-- ccc -->
+                          <table id="example" class="table card-table" style="width:100%">
+                              <thead>
+                                  <tr>
+                                      <th>No. </th>
+                                      <th>Audit Date</th>
+                                      <th>Audit Type</th>
+                                      <th>Audit Name</th>
+                                      <th>Total Score</th>
+                                      <th>Total Point</th>
+                                      <th>Total Answers</th>
+                                      <th>Total N/A</th>
+                                  </tr>
+                              </thead>
+                          </table>
+                          <!-- ccc -->
                       </div>
                       <div class="tab-pane fade <?php if(isset($_POST['q'])) echo "active show";?>" id="tabs-profile-8" role="tabpanel">
                         <!-- <h4>Profile tab</h4> -->
@@ -285,7 +297,7 @@ foreach ($question as $k => $v) {
                 <div class="card">
                   <div class="card-body">
                     <div class="subheader">Percentage Achievement</div>
-                    <div class="h3 m-0" style="font-size:27px;">99.33%</div>
+                    <div class="h3 m-0" style="font-size:27px;"><?=  number_format(($checklist_record[0]['total_point']/$checklist_record[0]['total_score']) * 100, 2);?>%</div>
                   </div>
                 </div>
               </div>
@@ -293,7 +305,7 @@ foreach ($question as $k => $v) {
                 <div class="card">
                   <div class="card-body">
                     <div class="subheader">Total Score</div>
-                    <div class="h3 m-0" style="font-size:27px;">65.0</div>
+                    <div class="h3 m-0" style="font-size:27px;"><?=$checklist_record[0]['total_score'];?></div>
                   </div>
                 </div>
               </div>
@@ -301,7 +313,7 @@ foreach ($question as $k => $v) {
                 <div class="card">
                   <div class="card-body">
                     <div class="subheader">Total Point</div>
-                    <div class="h3 m-0" style="font-size:27px;">60.0</div>
+                    <div class="h3 m-0" style="font-size:27px;"><?=$checklist_record[0]['total_point'];?></div>
                   </div>
                 </div>
               </div>
@@ -309,7 +321,15 @@ foreach ($question as $k => $v) {
                 <div class="card">
                   <div class="card-body">
                     <div class="subheader">Total Answer</div>
-                    <div class="h3 m-0" style="font-size:27px;">14</div>
+                    <div class="h3 m-0" style="font-size:27px;">
+
+                    <?php 
+                      $checklist_record[0]['total_answer'] = isset($checklist_record[0]['total_answer']) ? $checklist_record[0]['total_answer']:0;
+                      echo $checklist_record[0]['total_answer'];
+                    ?>
+
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -317,7 +337,11 @@ foreach ($question as $k => $v) {
                 <div class="card">
                   <div class="card-body">
                     <div class="subheader">Total N/A</div>
-                    <div class="h3 m-0" style="font-size:27px;">2</div>
+                    <div class="h3 m-0" style="font-size:27px;">
+                    <?php 
+                      $checklist_record[0]['total_na'] = isset($checklist_record[0]['total_na']) ? $checklist_record[0]['total_na']:0;
+                      echo $checklist_record[0]['total_na'];
+                    ?></div>
                   </div>
                 </div>
               </div>
@@ -515,8 +539,8 @@ foreach ($question as $k => $v) {
                 <div class="mb-3">
                   <label class="form-label">Checklist type</label>
                   <select class="form-select" name="checklist_type">
-                    <option value="internal">Internal Audit</option>
-                    <option value="external">External Audit</option>
+                    <option value="Internal">Internal Audit</option>
+                    <option value="External">External Audit</option>
                   </select>
                 </div>
               </div>

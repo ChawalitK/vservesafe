@@ -9,12 +9,12 @@ class ShecupFsmsAnswer
         $this->db_handle = new DBController();
     }
         
-    function addAnswer($answer) {
+    function addAnswer($answer, $checklist_id) {
         // echo "<pre>";
         // print_r($answer);
         // exit;
 
-        $_SESSION['checklist_id'] = 11;
+        // $_SESSION['checklist_id'] = 11;
 
         $list_insert_id = array();
 
@@ -22,7 +22,7 @@ class ShecupFsmsAnswer
             $section_id = (explode(".",$answer['q'][$i]));
 
             $company_id = 1;
-            $audit_id = $_SESSION['checklist_id'];            
+            $audit_id = $checklist_id;
             $section_id = $section_id[0];
             $question_no = $answer['q'][$i];
             $score = $answer['score'][$answer['q'][$i]];
